@@ -1,0 +1,42 @@
+<section class=" category">
+  <h4 *ngIf="!favorites.length"> لا يوجد اي منتجات في المفضله الخاصه بك
+    <a href="javascript:void(0)" [routerLink]="['/products']"> اضف الان </a>
+  </h4>
+  <div class=" category-alll" *ngIf="favorites.length">
+    <div class="categroy-perant-1" *ngFor="let parent of favorites.slice(0 , math.ceil(favorites.length / 6));let i=index">
+      <div class="categroy-child box" *ngFor="let favorite of favorites.slice(i*6 , (i*6) + 6); let j = index">
+        <div class="ribbon ribbon-top-right" *ngIf="favorite.product.offer">
+          <span> {{ offersType[favorite.product.offer.offer_type] }} </span>
+        </div>
+        <a [routerLink]="['/products/details/' + favorite.product.category.name + '/' + favorite.product.subCategory.name + '/'+ favorite.product.id + '_' + favorite.product.name]">
+          <img *ngIf="!favorite.product.images.length" class="market-img" src="assets/images/85414.PNG" [alt]="favorite.product.name">
+          <img *ngIf="favorite.product.images.length"
+          class="market-img" 
+          [src]="ImageBase + '/' +  favorite.product['images'][0].for +'/' + favorite.product['images'][0].name"
+          [alt]="favorite.product['images'][0].alt" 
+          [longDesc]="favorite.product['images'][0].description">
+        </a>
+        <p class="disc" title="وصف المنتج ">  {{ favorite.product.name | slice:0:25 }}
+            <span *ngIf="favorite.product.name.length > 15"> ..... </span> </p>
+        <div class="Details">
+          <span class="price" *ngIf="!favorite.product.offer">
+            Egp {{favorite.product['market'][0].Market_Products['Selling_price'] }}
+          </span>
+          <span class="price" *ngIf="favorite.product.offer && favorite.product.offer.offer_type == 1">
+            {{ favorite.product['market'][0]['Market_Products']['Selling_price'] -
+            (favorite.product['market'][0]['Market_Products']['Selling_price'] * favorite.product.offer.value /100) }} جنية
+          </span>
+        </div>
+        <a class="DeleteBtn" href="javascript:void(0)" (click)="onDeleteCliced(favorite.id)">
+          <i class="fa fa-trash"> </i>
+        </a>
+        <a class="DeleteBtn" href="javascript:void(0)" (click)="productservice.onAddToCart(favorite.product , false , 1)">
+          <i class="fa fa-shopping-cart fa-2x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="clear">
+
+    </div>
+  </div>
+</section>

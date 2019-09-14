@@ -1,0 +1,40 @@
+h5 { margin: 0; font-weight: bold; }
+.row { margin-top: 15px; margin-bottom: 15px; }
+.item {
+    position: relative;
+    padding-right: 180px;
+    margin-bottom: 30px;
+}
+.item img { 
+    width: 170px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 5px;
+    border: 1px solid #7d2468;
+    height: 100%;
+}
+.item ul { 
+    padding: 10px; 
+    list-style: none; 
+    border: 1px solid #7d2468;
+    border-radius: 5px;
+}
+.item ul li { margin-bottom: 5px; }
+.btn, .btn:hover { margin: 0; font-size: 15px; }
+@media(min-width: 768px) and (max-width: 992px){
+    .item { padding-right: 160px; }
+    .item img { width: 145px; }
+}
+@media(max-width: 768px) {
+    .item { padding-right: 160px; }
+    .item img { width: 150px; }
+} 
+@media(max-width: 646px) {
+    .item { padding-right: 180px; }
+    .item img { width: 170px; }
+} 
+@media(max-width: 539px) {
+    .item { padding-right: 100px; }
+    .item img { width: 95px; }
+} 

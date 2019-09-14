@@ -1,0 +1,52 @@
+
+
+.list-group {
+    z-index: 999;
+    position: absolute;
+
+  }
+
+  .list-group .list-group-item {
+    z-index: 999;
+  }
+
+  .active {
+    border: 1px solid black !important;
+  }
+
+  .UserDetails {
+    background-color: white;
+    color: #7d2468 !important;
+    border-radius: 15px !important;
+
+  }
+
+  .count {
+    z-index: 1;
+    position: absolute;
+    right: 2px;
+    top: 8px;
+    background-color: #d9534f;
+  }
+
+  .btn-group{
+    float: right;
+  }
+  .navbar-toggle{
+
+    background-color: #FFF !important;
+
+  }
+
+  .ng-sidebar {
+    background: red;
+    width: 13rem;
+  }
+
+  .ng-sidebar--right {
+    color: red !important;
+    background: antiquewhite;
+    width: 12rem;
+  }
+
+

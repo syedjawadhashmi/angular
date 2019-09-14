@@ -1,0 +1,123 @@
+<input type="file" style="display : none" #file id="file" (change)="onFileChanges($event)" accept=".png, .jpg, .jpeg">
+<section class="markets ">
+  <div class="container">
+    <!-- <h1> قم بتحديد المتجر الخاص بك </h1>
+    <span class="notes"> يتم تسجيل التاجر علي مرحلتين </span>
+    <span class="notes"> المرحله الأولي : تسجيل بيانات صاحب المتجر </span>
+    <span class="notes"> المرحله التانيه : تسجيل بيانات المتجر نفسه </span> -->
+    <div class="row" *ngIf="PageType == 'seller'">
+      <div class="market" *ngFor="let cat of categories" [id]="cat.id" (click)="onCategorySelected(cat)">
+        <img src="assets/images/market.png" [alt]="cat.name" [title]="cat.name">
+        <p class="markets-titel"> {{cat.name}} </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8 market-deteal" *ngIf="PageType == 'seller'">
+        <div class="ImageCont">
+          <img *ngIf="!SellerData.image" [alt]="SellerData.name || 'seller signup'"
+            src="./assets/images/MarketSeller.png" (click)="file.click()">
+          <img id="sellerImage" *ngIf="SellerData.image" [alt]="SellerData.name || 'seller signup'"
+            [src]="'data:image/jpeg;base64,' + SellerData.image.base64" (click)="file.click()"
+            [alt]="SellerData.image.alt" [title]="SellerData.image.description">
+          <span> اصافه صوره لصاحب المتجر </span>
+        </div>
+        <div>
+          <label> اسم مدير المتجر</label>
+          <input type="text" class="form-control" name="sellerName" [(ngModel)]="SellerData.name">
+        </div>
+        <div>
+          <label> البريد الالكتروني</label>
+          <input type="text" class="form-control" name="email" [(ngModel)]="SellerData.email">
+        </div>
+        <div>
+          <label> رقم الهاتف</label>
+          <input type="number" class="form-control" name="seller_phone" [(ngModel)]="SellerData.phone">
+        </div>
+        <div>
+          <label> الرقم القومي </label>
+          <input type="number" class="form-control" name="ssn" [(ngModel)]="SellerData.ssn">
+        </div>
+
+        <div>
+          <label> المحافظه </label>
+          <select class="form-control" name="country_seller" id="country_seller" [(ngModel)]="SellerData.country"
+            (change)="onCountryChange()">
+            <option *ngFor="let country of AllCountry" [value]="country.id"> {{ country.name }} </option>
+          </select>
+        </div>
+
+        <div>
+          <label> المدينه </label>
+          <select class="form-control" name="city_seller" id="city_seller" [(ngModel)]="SellerData.city">
+            <option *ngFor="let city of FilterdCities" [value]="city.id"> {{ city.name }} </option>
+          </select>
+        </div>
+
+        <div>
+          <label> كلمة المرور</label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="SellerData.password">
+        </div>
+        <div>
+          <label> تاكيد كلمة المرور</label>
+          <input type="password" class="form-control" id="password_confirm" name="password_confirm"
+            [(ngModel)]="SellerData.password_confirm">
+        </div>
+        <div class="login-submit">
+          <button (click)="onSignupClicked()"> تسجيل جديد</button>
+        </div>
+      </div>
+
+      <div class="col-lg-8 market-deteal-1" *ngIf="PageType == 'market'">
+        <!-- <h3 title="بيانات" class="text-center"> بيانات المتجر </h3> -->
+        <div class="ImageCoverContiner">
+          <p> اضافه كوفر للمتجر </p>
+          <img *ngIf="!MarketData.cover" [alt]="MarketData.name || 'market create'" src="./assets/images/cover.png"
+            (click)="ongetNewImage('cover')">
+          <img id="MarketCover" class="normal" [alt]="MarketData.name || 'market create'" *ngIf="MarketData.cover"
+            [src]=" 'data:image/jpeg;base64,' + MarketData.cover.base64" (click)="ongetNewImage('cover')">
+
+          <p> اضافه لوجو للمتجر </p>
+          <img *ngIf="!MarketData.image" [alt]="MarketData.name || 'market create'" src="./assets/images/image.png"
+            (click)="ongetNewImage('image')">
+          <img id="MarketLogo" class="logo" [alt]="MarketData.name || 'market create'" *ngIf="MarketData.image"
+            [src]=" 'data:image/jpeg;base64,' + MarketData.image.base64" (click)="ongetNewImage('image')">
+
+        </div>
+
+        <div>
+          <label> اسم المتجر </label>
+          <input type="text" class="form-control" name="marektName" [(ngModel)]="MarketData.name">
+        </div>
+
+        <p> المكان علي الخريطه </p>
+        <input type="search" id="address-input" name="searchText" placeholder="العنوان" dir="rtl"
+          [(ngModel)]="MarketData.address" />
+        <div id='myMap' #myMap></div>
+
+        <div>
+          <label> المحافظه </label>
+          <select class="form-control" name="country" id="country" [(ngModel)]="MarketData.Country_id"
+            (change)="onCountryChange()">
+            <option *ngFor="let country of AllCountry" [value]="country.id"> {{ country.name }} </option>
+          </select>
+        </div>
+
+        <div>
+          <label> المدينه </label>
+          <select class="form-control" name="city" id="city" [(ngModel)]="MarketData.City_id">
+            <option *ngFor="let city of FilterdCities" [value]="city.id"> {{ city.name }} </option>
+          </select>
+        </div>
+
+        <!-- <div class="file text-center">
+          <span class="span-file "> <i class="fa fa-upload"></i> اللوجوالخاص ب المتجر </span>
+          <input type="file" name="image" class="form-control" placeholder=" اضف صورة الاعلان">
+        </div> -->
+        <div class="login-submit">
+          <button (click)="onAddMarketClicked()"> اضافه المتجر </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

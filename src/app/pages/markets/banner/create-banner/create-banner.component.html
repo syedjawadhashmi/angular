@@ -1,0 +1,30 @@
+<input type="file" style="display : none" #file id="file" (change)="onFileChanges($event)" accept=".png, .jpg, .jpeg">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-5 col-xs-12 text-center">
+      <form role="form" class="login-forme">
+        <div class="imagContiner">
+          <img class="banner" *ngIf="BannerData.image && BannerData.image.base64" id="Banner" [src]="'data:image/jpeg;base64,' + BannerData.image.base64"
+            (click)="file.click()" [alt]="'alaunna'">
+          <img [alt]="'alaunna'" *ngIf="!BannerData.image || !BannerData.image.base64" src="./assets/images/image.png" (click)="file.click()">
+          <label> صورة البانر </label>
+        </div>
+        <div>
+          <label> العنوان </label>
+          <input type="text" id="name" class="form-control" name="title" [(ngModel)]="BannerData.title">
+        </div>
+        <div>
+          <label> الوصف </label>
+          <input type="text" id="email" class="form-control" name="description" [(ngModel)]="BannerData.description">
+        </div>
+        <div>
+          <label> الرابط الخارجي </label>
+          <input type="text" id="phone" class="form-control" name="link" [(ngModel)]="BannerData.link">
+        </div>
+        <div class="login-submit">
+          <button (click)="onAddClicked()"> اضافه البانر الان </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+.market-details {
+    text-align: right;
+  }
+  .market-details h4{
+    display: inline-block !important;
+    margin: 5px;
+    text-align: right;
+  }
+  .prod-image{
+    width: 80px;
+  }
+  .market-details h5{
+    /* display: inline-block; */
+  }
+.myorders { padding: 50px 0; }
+.myorders .order{ border: 2px solid #7d2468; padding: 15px; }
+.myorders .mytitle{ color: #7d2468; font-size: 28px; text-align: center; padding: 15px 0; }
+.myorders .one-order { padding: 15px 0; }
+.myorders .btn-danger { float: left; }
+.myorders .item { box-shadow: 0 0 3px #7d2468; margin-bottom: 20px; }
+.myorders .item .image-box { width: 100%; text-align: center; position: relative; }
+.myorders .item .image-box .delete {
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  font-size: 20px;
+  color: #7d2468;
+}
+.myorders .item .image-box img { width: 100%; }
+.myorders ul {
+  padding: 5px 15px;
+  list-style: none;
+}
+.myorders ul li {
+  padding: 7px 0;
+}
+.myorders ul strong { text-align: right; }
+.myorders ul span { float: left; text-align: left; }
+.myorders .item .content {
+  min-height: 385px;
+}

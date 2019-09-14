@@ -1,0 +1,116 @@
+<body>
+  <section class="myorders">
+    <div class="container">
+      <div class="mytitle">
+        <h2>الطلبات</h2>
+      </div>
+      <div class="order" *ngFor="let order of orders;let i = index" >
+          <h3 *ngIf="order.status == 'canceld'" class="text-right"> لقد تم مسح الطلب رقم : {{order.id}} </h3>
+
+        <ng-container  *ngIf="order.status != 'canceld'" >
+            <div class="row one-order">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                  <h4>رقم الطلب : <span> {{ order.id }}</span></h4>
+                  <p>العنوان المناسب لاستلام الطلب :  {{ order.sutiable_place }}</p>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <button class="btn btn-danger" *ngIf="CurrentUserData.category == 'customer'"
+                      style="float: left;margin: 5px" (click)="onChangeOrderStatus(order , 'canceld')">
+                      الغاء الطلب </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" *ngFor="let product of order.products" >
+                  <div class="item" *ngIf="product.OrderProducts.status != 'user_canceld'">
+                    <div class="image-box">
+                        <img *ngIf="!product.images || !product.images[productController.getMainImageIndex(product.images)]"
+                        src="https://via.placeholder.com/150" [alt]="product.name">
+                      <img  *ngIf="product.images && product.images[productController.getMainImageIndex(product.images)]"
+                      [alt]="product.images[productController.getMainImageIndex(product.images)].alt"
+                      [src]="ImageBase + '/' + product.images[productController.getMainImageIndex(product.images)].for + '/' + product.images[productController.getMainImageIndex(product.images)].name"
+                      [longDesc]="product.images[productController.getMainImageIndex(product.images)].description"
+                      >
+                      <a class="delete" href="#" title="delete product">X</a>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        <li>
+                          <strong>الصنف</strong>
+                          <span> {{ product.name}} </span>
+                        </li>
+                        <div class="clear"></div>
+                        <li *ngIf="CurrentUserData.category == 'customer'">
+                          <strong>البائع</strong>
+                          <span>{{product.market[0].name}} </span>
+                        </li>
+                        <div class="clear"></div>
+                        <li *ngIf="CurrentUserData.category == 'customer'">
+                          <strong>عنوان التاجر</strong>
+                          <span>{{product.market[0].address}}</span>
+                        </li>
+                        <div class="clear"></div>
+                        <li>
+                          <strong>تاريخ الحجز</strong>
+                          <span>{{ order.createdAt | date:'short' }}</span>
+                        </li>
+                        <div class="clear"></div>
+                        <li>
+                          <strong>طلبات مخصصة</strong>
+                          <span *ngFor="let item of getExtraInputAsJSON(product.OrderProducts.extra_options)"> {{
+                              item.name }} : {{ item.user_value }} , </span>
+                        </li>
+                        <div class="clear"></div>
+                        <li>
+                          <strong>السعر</strong>
+                          <span>{{ product.market[0].Market_Products['Selling_price'] }}</span>
+                        </li>
+                        <div class="clear"></div>
+                        <li>
+                          <strong>الكود</strong>
+                          <span> {{ product.nationalQr }} </span>
+                        </li>
+                        <div class="clear"></div>
+                        <li>
+                          <strong>الكمية</strong>
+                          <span>{{ product.OrderProducts.Quantity }}</span>
+                        </li>
+                        <div class="clear"></div>
+                        <li>
+                          <strong> الحاله </strong>
+                            <span *ngIf="product.OrderProducts.status == 'pending'"> لم يتم تجهيزه بعد </span>
+                            <span *ngIf="product.OrderProducts.status == 'prepared'"> تم تجهيزه </span>
+                            <span *ngIf="product.OrderProducts.status == 'no_exist'"> غير متوفر </span>
+                            <span *ngIf="product.OrderProducts.status == 'user_canceld'"> تم مسحه من قبل المستخدم </span>
+                        </li>
+                        <div class="clear"></div>
+                        <li>
+                          <strong> تغير حاله المنتج </strong>
+                          <span>
+                              <i class="fa fa-check"
+                              *ngIf="product.OrderProducts.status != 'prepared' && CurrentUserData.category == 'seller'"
+                              (click)="onChangeProductInOrderStatus(order , product.id , 'prepared')"></i>
+                            <i class="fa fa-times"
+                              *ngIf="product.OrderProducts.status != 'not_exist' && CurrentUserData.category == 'seller'"
+                              (click)="onChangeProductInOrderStatus(order , product.id,'not_exist')"></i>
+                            <i class="fa fa-times"
+                              *ngIf="product.OrderProducts.status != 'prepared' && CurrentUserData.category == 'customer'"
+                              (click)="onChangeProductInOrderStatus(order , product.id,'user_canceld')"></i>
+                          </span>
+                        </li>
+                        <div class="clear"></div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+        </ng-container>
+
+      </div>
+    </div>
+  </section>
+
+</body>

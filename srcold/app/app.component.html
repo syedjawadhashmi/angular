@@ -1,0 +1,21 @@
+<ng-snotify></ng-snotify>
+<ngx-loading-bar></ngx-loading-bar>
+<ng-sidebar-container [animate]="false">
+
+  <ng-sidebar [(opened)]="_opened" [mode]="'over'" [closeOnClickOutside]="true" [sidebarClass]="'demo-sidebar'">
+    <app-sidebar (closeNow)="_opened = false" [UserData]="UserData"></app-sidebar>
+  </ng-sidebar>
+
+  <div ng-sidebar-content #inner id="inner" class="inner">
+
+    <app-navbar *ngIf="router.url !='/' " class="animated fadeInDown" id="navbar" #navbar></app-navbar>
+    <section class="web_homePage" id="homeSection" #homeSection>
+      <mc-breadcrumbs *ngIf="router.url != '/'"></mc-breadcrumbs>
+
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
+      <app-footer></app-footer>
+    </section>
+
+  </div>
+
+</ng-sidebar-container>

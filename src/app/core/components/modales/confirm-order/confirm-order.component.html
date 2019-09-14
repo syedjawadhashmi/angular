@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-right"> تأكيد الطلب </h4>
+  <button type="button" class="close pull-left" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <span> الاجمالي : {{CartData.total_price}} </span>
+  <!-- <div class="form-group">
+    <label for="comment"> العوان المناسب لاستلام الطلب : </label>
+    <textarea class="form-control" rows="5" id="comment" [(ngModel)]="OrderData.sutiable_place"></textarea>
+  </div> -->
+  <div class="form-group">
+    <label for="DeliverDate"> التاريخ المناسب لاستلام الطلب </label>
+    <input type="date" id="DeliverDate" class="form-control" bsDatepicker [(ngModel)]="OrderData.sutiable_time">
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="onSaveClicked()"> حفظ </button>
+</div>

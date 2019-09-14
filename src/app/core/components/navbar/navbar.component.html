@@ -1,0 +1,347 @@
+<header class="top-header hidden-xs">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top">
+        <ul class="linkes">
+          <li class="lnk"> <a class="one-a" [routerLink]="['/offers']" [queryParams]="{offer_type : 5}"> ألاأونا
+              بتختارلك
+            </a>
+          </li>
+          <li class="dropdown lnk">
+          <li class="lnk"> <a class="one-a" [routerLink]="['/offers']" [queryParams]="{offer_type : 1}"> أحدث الموديلات
+            </a></li>
+          <!-- <li class="dropdown lnk" [id]="'piceOffer'" (mouseenter)="mouseHover('piceOffer')"
+            (mouseleave)="mouseLeave('piceOffer')">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> عروض القطع المجانيه <i
+                class="fa fa-chevron-down"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <ng-container>
+                <li><a [routerLink]="['/offers']" [queryParams]="{offer_type : 2}"> عرض قطعه وقطعه </a></li>
+                <li class="divider"></li>
+              </ng-container>
+              <ng-container>
+                <li><a [routerLink]="['/offers']" [queryParams]="{offer_type : 3}"> عرض قطعه وقطعتين </a></li>
+              </ng-container>
+            </ul>
+          </li> -->
+          <li class="lnk"> <a class="one-a" [routerLink]="['/offers']" [queryParams]="{offer_type : 4}"> المنتجات المفضة
+              للزائرين </a></li>
+          <li class="lnk"> <a [routerLink]="['/markets']"> المتاجر </a> </li>
+          <li class="lnk"> <a [routerLink]="['/price-offer/create-offer']"> طلب عرض </a> </li>
+          <li class="lnk"> <a (click)="onShowProductClicked()" *ngIf="!sharedStorage.current_user_data || sharedStorage.current_user_data.category == 'customer'">
+              اعرض منتجك معانا </a> </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</header>
+<!-- start nav bar -->
+<section class="alauna-nav" dir="rtl">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="row">
+      <div class=" logo-item col-lg-3 col-md-3 col-sm-3 col-xs-2 ">
+        <a class="navbar-brand navbar-right" [routerLink]="['/home']"> <img src="assets/images/Alaunna.png"
+            alt="alaunna logo الاونا لوجو" longDesc="alaunan logo">
+        </a>
+      </div>
+      <div class="col-xs-2 col-sm-2">
+        <button class="navbar-toggle" type="button" (click)="_toggleSidebar()">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <form class="navbar-form navbar" role="search">
+
+              <div class="search">
+                <input type="text" class="form-control" name="search" id="search" placeholder="ما الذى تبحث عنه ؟"
+                  [(ngModel)]="SearchingWord" (input)="onInputChanged($event)" (focus)="foucasChange()"
+                  (focusout)="foucasChange()">
+                <button type="submit" class="submit1" [ngClass]="{'active' : Search_type == 'text'}"
+                  (click)="onChangeSearchType('text')">
+                  <i class="fa fa-search "></i> </button>
+                <!-- <button type="submit" class="submit2" [ngClass]="{'active' : Search_type == 'place'}"
+                  (click)="onChangeSearchType('place')">
+                  <i class="fa fa-map-marker"></i> </button> -->
+              </div>
+
+              <div class="list-group" *ngIf="SearchingResult">
+                <!-- <a [routerLink]="['/products/details/' + prod.category.name +'/' + prod.subCategory.name + '/' + prod.id + '_' + prod.name]"
+                  *ngFor="let prod of SearchingResult.products" class="list-group-item list-group-item-action">
+                  {{ prod.name }} </a> -->
+                  <a [routerLink]="['/products/details/' + prod.id + '_' + prod.name]"
+                  *ngFor="let prod of SearchingResult.products" class="list-group-item list-group-item-action">
+                  {{ prod.name }} </a>
+                <a [routerLink]="['/markets/details/' + market.id + '_' + market.name ]"
+                  *ngFor="let market of SearchingResult.markets" class="list-group-item list-group-item-action">
+                  {{ market.name }} </a>
+
+                <a [routerLink]="['/products/' + cat.id + '-' + cat.name.replace(' ' , '-')]" class="list-group-item list-group-item-action"
+                   *ngFor="let cat of SearchingResult.categories">
+                  {{ cat.name }} </a>
+                <a [routerLink]="['/products/show']" class="list-group-item list-group-item-action"
+                  [queryParams]="{subcategory_id : subcat.id}" *ngFor="let subcat of SearchingResult.Subcategories">
+                  {{ subcat.name }} </a>
+                <a [routerLink]="['/products/show']" class="list-group-item list-group-item-action"
+                  [queryParams]="{subsubcategory_id : subsubcat.id}"
+                  *ngFor="let subsubcat of SearchingResult.SubSubcategories">
+                  {{ subsubcat.name }} </a>
+              </div>
+
+            </form>
+          </div>
+          <!-- <ul class="nav navbar-nav navbar-left"> -->
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 button-1">
+            <button type="submit" class=" btn-1" [routerLink]="['/markets']" [queryParams]="{'geo-filter' : true}">متاجر
+              بالقرب منك
+            </button>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 button-1 ">
+            <button *ngIf="!sharedStorage.current_user_data" type="submit" class="btn-3" [routerLink]="['/auth/user-login']">تسجيل
+              الدخول</button>
+            <div class="btn-group" dropdown *ngIf="sharedStorage.current_user_data">
+              <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle"
+                aria-controls="dropdown-basic">
+                {{ sharedStorage.current_user_data.name }} <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <ng-container>
+                  <li><a [routerLink]="['/user/profile']"> اعدادت الحساب </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+
+
+                
+                <ng-container >
+                  <li><a [routerLink]="['/chat']"> الدردشه </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+                
+                                
+                <ng-container *ngIf="sharedStorage.current_user_data.category == 'customer'" >
+                  <li><a [routerLink]="['/price-offer/create']">  اضافه طلب عرض  </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+
+                <ng-container>
+                  <li><a [routerLink]="['/price-offer/show']"> عرض طلبات الاسعار  </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+
+                <ng-container *ngIf="sharedStorage.current_user_data.category == 'customer'">
+                  <li><a [routerLink]="['/user/timeline']"> متاجرك </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+
+                <ng-container *ngIf="sharedStorage.current_user_data.category == 'seller' && sharedStorage.current_user_data['markets'] && sharedStorage.current_user_data['markets'][0]">
+                  <li><a [routerLink]="['/products/myproducts']"
+                      [queryParams]="{market_id: sharedStorage.current_user_data['markets'][0].id  , for_market : true}">
+                      منتجاتي </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+
+                <ng-container *ngIf="sharedStorage.current_user_data.category == 'seller'">
+                  <li><a [routerLink]="['/products/create']"> اضافه منتج جديد </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+
+                <ng-container *ngIf="sharedStorage.current_user_data.category == 'seller'">
+                  <li><a [routerLink]="['/markets/banner/create']"> اضافه اعلان جديد </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+
+                <ng-container *ngIf="sharedStorage.current_user_data.category == 'seller'">
+                  <li><a [routerLink]="['/offers/create']"> اضافه عروض لمنتجات </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+
+                <ng-container>
+                  <li><a [routerLink]="['/orders']"> طلباتي </a></li>
+                  <li class="divider"></li>
+                </ng-container>
+
+                <ng-container>
+                  <li><a href="javascript:void(0)" (click)="onLogOutClicked()"> تسجيل الخروج </a></li>
+                </ng-container>
+              </ul>
+            </div>
+
+          </div>
+          <!-- <button class="btn btn-default" *ngIf="sharedStorage.current_user_data"> -->
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <li class="MarginLi">
+              <a [routerLink]="['/user/favorite']"><i class="fa fa-heart fa-2x"></i></a>
+            </li>
+          </div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
+            <li class="MarginLi">
+
+              <a [routerLink]="['/user/cart']">
+                <i class="fa fa-shopping-cart fa-2x"> <span class="badge count" *ngIf="CartCount"> {{CartCount}} </span>
+                </i>
+              </a>
+            </li>
+          </div>
+          <!-- </ul> -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"></div>
+        </div>
+      </div>
+      <!-- <nav class="navbar "> -->
+      <div class="row dropdowns-menu">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="navbar-header">
+
+          </div>
+
+          <div class="collapse navbar-collapse js-navbar-collapse">
+            <ul class="nav navbar-nav">
+
+              <!-- <li class="dropdown mega-dropdown" id="allSubCat" (mouseenter)="mouseHover('allSubCat')"
+                (mouseleave)="mouseLeave('allSubCat')">
+                <a class="dropdown-toggle" data-toggle="dropdown"> جميع الفئات <span class="caret"></span></a>
+                <ul class="dropdown-menu mega-dropdown-menu">
+                  <li class="col-sm-3"
+                    *ngFor="let parent of Subcategories.slice(0, math.ceil(Subcategories.length / 4));let i = index">
+                    <ul>
+                      <li *ngFor="let subcat of Subcategories.slice(i*4 , (i*4) + 4)">
+                        <a [routerLink]="['/products/' + subcat.category_id + '-' + subcat.category_name.replace(' ','-') + '/' + subcat.id + '-' + subcat.name.replace(' ' , '-') ]"
+                          (click)="closeMenu()">{{
+                          subcat.name }}</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li> -->
+
+              <li class="dropdown mega-dropdown" *ngFor="let cat of categories" [id]="cat.id + 'cat'"
+                (mouseenter)="mouseHover(cat.id + 'cat')" (mouseleave)="mouseLeave(cat.id + 'cat')">
+                <a [routerLink]="['/markets/' +  cat.id + '-' + ' متجر ' +cat.name]" *ngIf="cat.markets.length"
+                  class="dropdown-toggle" data-toggle="dropdown">
+                  متجر {{ cat.name }} <span class="caret"></span></a>
+                <ul class="dropdown-menu mega-dropdown-menu">
+                  <li class="col-sm-3"
+                    *ngFor="let parent of cat.markets.slice(0, math.ceil(cat.markets.length / 4));let i = index">
+                    <ul>
+                      <li *ngFor="let market of cat.markets.slice(i*4 , (i*4) + 4)">
+                        <a [routerLink]="['/markets/details/' + market.id + '_' + market.name]" (click)="closeMenu()">
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <img *ngIf="!market.Image" class="mega-img" src="assets/images/1.PNG" [alt]="market.name">
+                              <img *ngIf="market.Image" class="mega-img"
+                                [src]="ImageBase + '/' + market.Image.for  +'/small/'+market.Image.name "
+                                [alt]="market.Image.alt" [longDesc]="market.Image.description" #marketLogo
+                                (error)="marketLogo.src = ImageBase + '/' + market.Image.for  +'/'+market.Image.name ">
+                            </div>
+                            <div class="col-lg-5">
+                              {{ market.name }}
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /.nav-collapse -->
+      <!-- </nav> -->
+    </div>
+  </nav>
+</section>
+<!---->
+
+<!--
+<ngx-aside class="hidden-lg" #NgxAsidePanelRight (cancel)="NgxAsidePanelRight.hide()" [position]="'right'"
+  [closeOnEscape]="true" [showOverlay]="false" [showDefaultFooter]="false" [showDefaultHeader]="false">
+
+  <header style="padding: 10px;background-color: #7d2468;color: #FFF;">
+    <a [routerLink]="['/home']"> <img src="assets/images/Alaunna.png" alt=" اللجو" width="100px"> </a>
+    <button (click)="NgxAsidePanelRight.hide()" style="    float: left;
+        background-color: #7d2468;
+        border: 1px solid;">
+      <i class="fa fa-times"></i>
+    </button>
+  </header>
+
+  <div class="btn-group" dropdown>
+    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+    aria-controls="dropdown-basic"
+      style="width: 90%;margin-right: 6%;" >
+      جميع الفئات <span class="caret"></span>
+    </button>
+    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+      <li role="menuitem" class="col-sm-3" *ngFor="let parent of Subcategories.slice(0, math.ceil(Subcategories.length / 4));let i = index">
+        <ul>
+          <li *ngFor="let subcat of Subcategories.slice(i*4 , (i*4) + 4)" style="    list-style: none;
+          ">
+            <a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{subcategory_id: subcat.id}" (click)="NgxAsidePanelRight.hide()">{{
+              subcat.name }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="btn-group" dropdown *ngFor="let cat of categories">
+    <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic"
+      style="width: 90%;margin-right: 6%;">
+      {{ cat.name }} <span class="caret"></span>
+    </button>
+    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+        <ul>
+          <li *ngFor="let market of cat.markets">
+            <a class="dropdown-item" [routerLink]="['/markets/details/' + market.id]" (click)="NgxAsidePanelRight.hide()">
+              <div class="row">
+                <div class="col-lg-4">
+                  <img *ngIf="!market.Image" class="mega-img" src="assets/images/1.PNG" alt=" market1">
+                  <img *ngIf="market.Image" class="mega-img" [src]="ImageBase + '/' + market.Image.for  +'/'+market.Image.name "
+                    [alt]="market.Image.alt" [title]="market.Image.description">
+                </div>
+                <div class="col-lg-5">
+                  {{ market.name }}
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+    </ul>
+
+  </div>
+  <div class="container top-header">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top">
+        <li class="phone hidden-xs"> <a href="#"> +201017931092 </a> <i class="fa fa-phone"></i></li>
+        <ul class="linkes">
+          <li class="lnk"> <a class="one-a" [routerLink]="['/offers']" [queryParams]="{offer_type : 5}" (click)="NgxAsidePanelRight.hide()"> عروض اليوم </a></li>
+          <li class="dropdown lnk">
+          <li class="lnk"> <a class="one-a" [routerLink]="['/offers']" [queryParams]="{offer_type : 1}" (click)="NgxAsidePanelRight.hide()"> عروض الخصومات
+            </a></li>
+
+          <li class="lnk"> <a class="one-a" [routerLink]="['/offers']" [queryParams]="{offer_type :2}" (click)="NgxAsidePanelRight.hide()"> عرض قطعه وقطعه
+            </a></li>
+          <li class="lnk"> <a class="one-a" [routerLink]="['/offers']" [queryParams]="{offer_type : 3}" (click)="NgxAsidePanelRight.hide()"> عرض قطعه
+              وقطعتين
+            </a></li>
+          <li class="lnk"> <a class="one-a" [routerLink]="['/offers']" [queryParams]="{offer_type : 4}" (click)="NgxAsidePanelRight.hide()"> عروض خصومات
+              الاأونا </a></li>
+          <li class="lnk"> <a [routerLink]="['/markets']" (click)="NgxAsidePanelRight.hide()"> المتاجر </a> </li>
+          <li class="lnk"> <a (click)="onShowProductClicked()" *ngIf="!sharedStorage.current_user_data || sharedStorage.current_user_data.category == 'customer'">
+              اعرض منتجك معانا </a> </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+</ngx-aside> -->

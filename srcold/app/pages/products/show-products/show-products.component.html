@@ -1,0 +1,198 @@
+<!-- start filltertion-->
+<div class="container-fluid">
+  <div class="row">
+    <diV class="col-lg-6 col-sm-6 col-md-6 col-xs-6 menu-toggle">
+      <button class="toggle-button" type="button" (click)="_toggleSidebar()">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+    </diV>
+  </div>
+</div>
+
+<section class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center ">
+        <div class="logoes" *ngIf="!forMarket">
+          <!-- <div class="swiper-container" [swiper]="Swiperconfig" [(index)]="Swiperindex">
+            <div class="swiper-wrapper">
+              <div [ngClass]="i == 0 ? 'active' : ''" class="swiper-slide" *ngFor="let market of markets;let i = index">
+                <a [routerLink]="['/products']" [queryParams]="{'market_id' : market.id}">
+                  <img *ngIf="market.Image" [src]="ImageBase + '/' + market.Image.for + '/' + market.Image.name " [alt]="market.Image.alt"
+                    [title]="market.Image.description">
+                  <img *ngIf="!market.Image" src="assets/images/2.PNG" alt="alaunna">
+                </a>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div> -->
+          <swiper [config]="Swiperconfig">
+            <div [ngClass]="i == 0 ? 'active' : ''" class="swiper-slide" *ngFor="let market of markets;let i = index">
+              <a [routerLink]="['/products']" [queryParams]="{'market_id' : market.id}">
+                <img *ngIf="market.Image" 
+                [src]="ImageBase + '/' + market.Image.for + '/small/' + market.Image.name "
+                  [alt]="market.Image.alt" 
+                  [longDesc]="market.Image.description">
+                <img *ngIf="!market.Image" src="assets/images/2.PNG" alt="alaunna" [alt]="market.name">
+              </a>
+            </div>
+          </swiper>
+        </div>
+
+        <div class=" col-lg-12  text-center">
+          <div class=" check   text-center">
+            <form>
+              <div id="group1" role="group" aria-label="اختار الترتيب حسب">
+                <label> ترتيب حسب</label>
+
+                <input type="radio" name="sort" value="new" (change)="onSortChanged('new')"> الاحدث
+                <input type="radio" name="sort" value="high" (change)="onSortChanged('high')"> الاعلى سعرا
+                <input type="radio" name="sort" value="low" (change)="onSortChanged('low')"> الاقل سعرا
+              </div>
+            </form>
+
+          </div>
+          <div class="form-group">
+            <label for="country"> المحافظه </label>
+            <select class="form-control" name="country" id="country" [(ngModel)]="country_id"
+              (change)="onCountryChange()">
+              <option *ngFor="let country of AllCountry" [value]="country.id"> {{ country.name }} </option>
+              <option [value]="''"> الكل </option>
+            </select>
+          </div>
+          <div class="  check-price">
+            <label> السعر</label>
+            <input type="number" name="from" [(ngModel)]="PriceFrom" placeholder="من" min="0" class="check-num">
+            <input type="number" placeholder="  الى " [(ngModel)]="PriceTo" name="to" min="0" class="check-num">
+            <button (click)="onFilterWithPriceClicked()"> تم </button>
+          </div>
+          <!-- <button type="button" class="btn btn-primary" (click)="ShowFilter = !ShowFilter"> التصفيه <i class="fa fa-filter"
+              aria-hidden="true"></i> </button> -->
+        </div>
+      </div>
+
+    </div>
+    <div class="row" *ngIf="ShowFilter">
+      <div *ngFor="let item of filterInpputs;let i = index" class="col-lg-2">
+        <ng-container *ngIf="item.type == 'select' || item.type == 'radio'">
+          <h3> {{item.name}} </h3>
+
+          <ul class="list-group">
+            <div class="form-check list-group-item" *ngFor="let subitem of item.values;let j = index">
+              <input class="form-check-input" type="checkbox" id="defaultCheck1" [name]="'inputName'+ j.toString()"
+                (change)="onValueChanged(subitem , i , j , $event.target.checked )">
+              <label class="form-check-label" for="defaultCheck1">
+                {{ subitem }}
+              </label>
+            </div>
+          </ul>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ENd filltertion-->
+
+<section class="category">
+
+  <!-- <h3 *ngIf="!filteredProducts.length" style="text-align: center"> لا يوجد اي منتجات لعرضها </h3> -->
+
+  <div class="category-alll" id="productsContainer" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+    [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" [scrollWindow]="false"
+    [fromRoot]="true" [infiniteScrollContainer]="'.ng-sidebar__content'" (scrolled)="onScroll()">
+
+    <div class="categroy-perant-1"
+      *ngFor="let parent of filteredProducts.slice(0, math.ceil(filteredProducts.length / 4));let i = index">
+
+      <div class="categroy-child box" *ngFor="let product of filteredProducts.slice(i*4 , (i*4) + 4)">
+        <div class="market-name">
+          <div class="productOffer" *ngIf="product.offer && product.offer.value != 0">
+            <span> خصم {{ product.offer.value }} % </span>
+          </div>
+          <a href="javascript:void(0)" *ngIf="
+             !UserData ||
+             !UserData['markets'] ||
+             !UserData['markets'][0] ||
+             UserData['markets'][0].id != product.market[0].id"
+             [routerLink]="'/markets/details/' + product.market[0].id + '_' + product.market[0].name"> {{ product.market[0].name |
+            slice:0:25 }}
+          </a>
+          <a *ngIf="
+          UserData &&
+          UserData['markets'] &&
+          UserData['markets'][0] &&
+          UserData['markets'][0].id == product.market[0].id " [routerLink]="['/products/edit/' + product.id]"> تعديل
+          </a>
+          <a *ngIf="
+            UserData &&
+            UserData['markets'] &&
+            UserData['markets'][0] &&
+            UserData['markets'][0].id == product.market[0].id " [routerLink]="['/products/edit/' + product.id]"
+            style="float: right;" [ngStyle]="{'background-color': product.status == 'active' ? 'green' : 'red'}">
+            {{ ProductStatus[product.status] }} </a>
+        </div>
+
+        <a
+          [routerLink]="['/products/details/' + product.category.name + '/' +product.subCategory.name + '/' + product.id +'-' +product.name]">
+      
+          <img *ngIf="product.images.length > 0" class="market-img"
+            [src]="ImageBase + '/' +product.images[productsController.getMainImageIndex(product.images)].for + '/' + product.images[productsController.getMainImageIndex(product.images)].name "
+            [alt]="product.images[productsController.getMainImageIndex(product.images)].alt" 
+            [longDesc]="product.images[productsController.getMainImageIndex(product.images)].description" >
+
+          <img *ngIf="product.images.length <= 0" class=" market-img" src="https://via.placeholder.com/150"
+            [alt]="product.name" >
+        </a>
+
+        <p class="disc" title="وصف المنتج "> {{ product.name | slice:0:25 }}
+          <!-- <span *ngIf="product.name.length > 15"> ..... </span> -->
+        </p>
+        <span class="price"
+          *ngIf="product.offer && (product.offer.offer_type == 1 || product.offer.offer_type == 4 || product.offer.offer_type == 5 )">
+          {{ product['market'][0]['Market_Products']['Selling_price'] -
+          (product['market'][0]['Market_Products']['Selling_price'] * product.offer.value /100) }} جنية
+        </span>
+
+        <span class="price"
+          *ngIf="!product.offer || (product.offer && (product.offer.offer_type == 2 || product.offer.offer_type == 3))">
+          EGP {{ product.market[0].Market_Products['Selling_price'] }}
+        </span>
+
+        <!-- <span class="old-price" *ngIf="product.offer && product.offer.foffer_type == 2">
+        قطعتين بثمن قطعه
+        </span>
+
+        <span class="old-price" *ngIf="product.offer && product.offer.offer_type == 3">
+          ثلاثه قطع بثمن قطعه
+        </span>
+        <span class="old-price" *ngIf="!product.offer">
+
+        </span> -->
+        <div class="my_icons">
+          <a href="javascript:void(0)" (click)="productsController.onAddToCart(product, false ,1)">
+            <i class="fa fa-shopping-cart fa-2x"></i>
+          </a>
+          <a href="javascript:void(0)" (click)="onAddToFavoritePressed(product)">
+            <i class="fa fa-heart fa-2x"></i>
+          </a>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+    </div>
+  </div>
+  <div class="clear"></div>
+
+  <!-- <div class="container" *ngIf="showMore">
+    <div class="row">
+      <div class="col-lg-12 load-more">
+        <a title="تحميل المزيد" (click)="onScroll()" class="show-more">تحميل المزيد</a>
+      </div>
+    </div>
+  </div> -->
+  <!-- <button  class="more-product"(click)="onLoadMoreClicked()" > تحميل المزيد من المنتجات </button> -->
+</section>
+
+<!--End category -->

@@ -1,0 +1,189 @@
+<section class="main-container">
+  <!-- <img class="background-img" src="./assets/images/background.jpg"> -->
+  <div class="float-content"
+    [ngStyle]="{'background-image' : settingData.home_image ? 'url('+ImageBase + '/' + settingData.home_image.for + '/' + settingData.home_image.name+')' : 'url(../../../assets/images/background.jpg)' }">
+    <!--  header -->
+    <div class="container-fluid">
+      <div class="row">
+        <diV class="col-lg-6 col-sm-6 col-md-6 col-xs-6 menu-toggle">
+          <button class="toggle-button" type="button" (click)="_toggleSidebar()">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+          </button>
+        </diV>
+        <diV class="col-lg-6 col-sm-6 col-md-6 col-xs-6 user-profile">
+          <button class="toggle-button" type="button" (click)="onGoToProfile()">
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            {{ sharedStorage.current_user_data?.name.split(' ')[0] }}
+          </button>
+        </diV>
+      </div>
+    </div>
+    <!-- header end -->
+    <!-- start center content -->
+    <div class="center-content">
+      <div class="header">
+        <!-- <a [routerLink]="['/']" > -->
+        <h3> <img class="logo" src="../../../assets/images/الاونا-لوجو.png" alt=" اللجو"> </h3>
+        <!-- </a> -->
+      </div>
+      <div class="body">
+        <div class="form-container">
+
+          <form>
+
+
+            <ng-template #Category class="options">
+              <!-- {{ selectCategory.name || 'الكل'}} -->
+              <div *ngFor="let category of categories"
+                (click)="filterData.category_id = category.id;selectedCategory = category;CategoryBtn.click()"
+                class="option" [ngClass]="{selected: category.id === filterData.category_id}">
+                 {{ category.name }}
+              </div>
+
+              <!-- <div (click)="filterData.category_id = '';selectedCategory = {};CategoryBtn.click()" class="option"
+                [ngClass]="{selected: filterData.category_id == ''}">
+                الكل
+              </div> -->
+
+            </ng-template>
+
+
+            <ng-template #Countries class="options">
+              <!-- {{ selectCategory.name || 'الكل'}} -->
+              <div *ngFor="let country of countries"
+                (click)="filterData.country_id = country.id;selectedCountry = country;CountryBtn.click()" class="option"
+                [ngClass]="{selected: country.id === filterData.country_id}">
+                {{ country.name }}
+              </div>
+              <!-- <div (click)="filterData.country_id = '';selectedCountry = {};CountryBtn.click()" class="option"
+                [ngClass]="{selected: filterData.country_id == ''}">
+                الكل
+              </div> -->
+            </ng-template>
+
+
+            <div class="form-group">
+              <button type="button" class="btn select-btn" #CountryBtn [popover]="Countries"
+                popoverTitle="اختر المحافظة">
+                <span *ngIf="!selectedCountry.name"> المحافظة </span>
+                <!-- <span style="display: block" *ngIf="!selectedCountry.name" > الكل  </span> -->
+                <span *ngIf="selectedCountry.name"> {{selectedCountry.name}} </span>
+
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+                <!-- {{ selectedCountry.name }} -->
+              </button>
+
+            </div>
+
+            <div class="form-group">
+              <button type="button" class="btn select-btn" #CategoryBtn [popover]="Category"
+                popoverTitle="اختار الفئه">
+                <span *ngIf="!selectedCategory.name"> فئه </span>
+                <!-- <span style="display: block" *ngIf="!selectedCategory.name" > الكل  </span> -->
+                <span *ngIf="selectedCategory.name"> {{selectedCategory.name}} </span>
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+                <!-- {{ selectedCategory.name }} -->
+              </button>
+            </div>
+
+
+
+
+            <div class="btn-cont">
+
+              <!-- <button *ngIf="!selectedCategory['name'] || !selectedCountry['name']" type="button"
+                class="btn btn-primary">
+                ابحث
+              </button> -->
+              <a *ngIf="selectedCategory['name'] && selectedCountry['name']" type="button" class="btn btn-primary"
+                [routerLink]="['/products/country/' + selectedCountry['id'] + '-' + selectedCountry['name'] + '/'  +selectedCategory['id'] + '-' + selectedCategory['name'] ]">
+                ابحث
+              </a>
+              <a *ngIf="selectedCategory['name'] && !selectedCountry['name']" type="button" class="btn btn-primary"
+                [routerLink]="['/products/' +selectedCategory['id'] + '-' + selectedCategory['name'] ]">
+                ابحث
+              </a>
+
+              <a *ngIf="!selectedCategory['name'] && selectedCountry['name']" type="button" class="btn btn-primary"
+                [routerLink]="['/products/country/' +selectedCountry['id'] + '-' + selectedCountry['name'] ]">
+                ابحث
+              </a>
+
+
+              <a *ngIf="!selectedCategory['name'] && !selectedCountry['name']" type="button" class="btn btn-primary"
+                [routerLink]="['/products/']">
+                ابحث
+              </a>
+
+            </div>
+            <!-- <div class="form-group GeoButton">
+                  <button class="btn btn-circle btn-lg" (click)="onGeoPressed()">
+                    <img src="./assets/images/searchIcon.png" width="25" height="25" alt="search" >
+                  </button>
+                  <label> موقعي </label>
+                </div> -->
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container-fluid">
+  <div class="swiper-container" id="MainAds" #MainAds [swiper]="Swiperconfig">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide" *ngFor="let slide of banners">
+        <a [href]="slide.link" target="blank">
+          <img class="SlideImage" *ngIf="!slide.image" src="assets/images/Group 472.png" alt="alaunna" title="alaunna">
+          <img class="SlideImage" *ngIf="slide.image"
+            [src]="ImageBase +  '/' + slide.image.for + '/small/' + slide.image.name " [alt]="slide.image.alt"
+            [longDesc]="slide.image.description" #slideImage
+            (error)="slideImage.src = ImageBase +  '/' + slide.image.for + '/' + slide.image.name">
+        </a>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</div>
+<!-- 
+<div class="footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4 col-xs-6">
+        <div class="social-links">
+          <h5> تواصل معنا </h5>
+          <ul>
+            <li> <a title="whatsapp" href="https://api.whatsapp.com/send?phone=201010039331" target="_blank"> <i
+                  class="fa fa-whatsapp"></i> </a> </li>
+            <li> <a title="facebook"
+                href="https://www.facebook.com/%D8%A3%D9%84%D8%A7%D8%A3%D9%88%D9%86%D8%A7-403700423733386/"
+                target="_blank"> <i class="fa fa-facebook"></i> </a> </li>
+            <li> <a title="gmail" href="mailto:alaunna.markting@gmail.com" target="_blank"> <i
+                  class="fa fa-envelope-square"></i> </a> </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-xs-6">
+        <div class="download-app">
+          <h5> يمكنك تحميل التطبيق الأن </h5>
+          <ul>
+            <li> <a href="https://play.google.com/store/apps/details?id=customer.alaunna.com" target="_blank"> <i
+                  class="fa fa-android"></i> </a> </li>
+            <li> <a href="#" target="_blank"> <i class="fa fa-apple"></i> </a> </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-xs-12">
+        <div class="copyright">
+          <p> &copy; Alauuna 2019 </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

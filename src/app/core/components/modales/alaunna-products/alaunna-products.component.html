@@ -1,0 +1,107 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title pull-right"> اضافه منتجات الاأونا الي المتجر الخاص بك </h4>
+    <button type="button" class="close pull-left" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body  ">
+    <div>
+      <tabset>
+        <tab heading="منتجات الاأونا" id="tab1">
+          <form>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1"> الفئه </label>
+              <select class="form-control" id="exampleFormControlSelect1" name="subcategory"
+                [(ngModel)]="subcategory_id" (change)="onSubCategoryChange()">
+                <option *ngFor="let subcat of filterdsubCat" [value]="subcat.id"> {{subcat.name}} </option>
+                <option [value]="false"> الكل </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1"> الفئه الفرعيه </label>
+              <select class="form-control" id="exampleFormControlSelect1" name="subsubcategory_id"
+                [(ngModel)]="subsubcategory_id" (change)="onSubSubCategoryChanged()">
+                <option *ngFor="let subsubcat of fitlerdSubsubCat" [value]="subsubcat.id"> {{subsubcat.name}} </option>
+                <option [value]="false"> الكل </option>
+              </select>
+            </div>
+
+          </form>
+
+          <h3 *ngIf="!AwshnProducts.length"> لا يوحد منتجات لدينا للفئه الخاصه بك </h3>
+          <div infinite-scroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
+            (scrolled)="onScroll()">
+
+            <div class="categroy-child" *ngFor="let product of AwshnProducts">
+              <div class="market-name">
+                <input type="checkbox" name="checkBox" [(ngModel)]="product.checked" (change)="onInputCheckedChange()">
+              </div>
+              <img *ngIf="!product.images || !product.images[productsController.getMainImageIndex(product.images)]"
+                class="market-img" src="https://via.placeholder.com/150" [alt]="product.name" width="222" height="163">
+              <img class="market-img"
+                *ngIf="product.images && product.images[productsController.getMainImageIndex(product.images)]"
+                [src]="ImageBase + '/' + product.images[productsController.getMainImageIndex(product.images)].for + '/' + product.images[productsController.getMainImageIndex(product.images)].name"
+                [alt]="product.name"
+                [title]="product.images[productsController.getMainImageIndex(product.images)].description">
+              <p class="disc" title="اسم المنتج">
+                {{ product.name | slice:0:25 }}
+                <!-- <span *ngIf="product.name.length > 15"> ..... </span> -->
+              </p>
+            </div>
+          </div>
+        </tab>
+        <tab *ngFor="let sProduct of SelectedProducts" [heading]="sProduct.name">
+          <form role="form" class="add-product">
+            <div>
+              <label> كود داخلي </label>
+              <input type="text" id="inner_code" class="form-control" name="inner_code"
+                [(ngModel)]="sProduct['market_product'].InnerCode">
+            </div>
+
+            <div>
+              <label> سعر البيع </label>
+              <input type="number" id="selling_price" min="0" class="form-control" name="selling_price"
+                [(ngModel)]="sProduct['market_product'].Selling_price">
+            </div>
+
+            <div>
+              <label> سعر الشراء </label>
+              <input type="number" id="purchasing_price" min="0" class="form-control" name="purchasing_price"
+                [(ngModel)]="sProduct['market_product'].Purchasing_price">
+            </div>
+
+            <div class="form-group">
+              <label for="DeliverDate"> تاريخ انتهاء الصلاحيه </label>
+              <input type="text" id="DeliverDate" name="exipreDate" class="form-control" bsDatepicker
+                [(ngModel)]="sProduct['market_product']['Expire_date']">
+            </div>
+
+            <div class="Tax">
+              <label> الضريبه </label>
+              <input type="number" id="tax" min="0" class="form-control" name="tax" [(ngModel)]="sProduct['market_product']['Tax']">
+              <span> نسبه مئويه </span>
+            </div>
+
+            <div>
+              <label> الكمية </label>
+              <input type="number" id="quantity" min="0" class="form-control" name="quantity"
+                [(ngModel)]="sProduct['market_product'].quantity">
+            </div>
+
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1" name="awshn_display"
+                [(ngModel)]="sProduct['market_product']['Showen']">
+              <label class="form-check-label" for="exampleCheck1"> عرض علي الموقع وتطبيق المستخدم </label>
+            </div>
+          </form>
+        </tab>
+      </tabset>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+
+    <button type="button" (click)="onSaveClicked()" class="btn btn-default"> حفظ </button>
+  </div>
+</div>

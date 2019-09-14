@@ -1,0 +1,60 @@
+.category h4 {
+    text-align: center;
+  }
+  .category h4 a{
+    display: block;
+  }
+  .counte{
+    display: inline-block;
+  }
+
+  .price{
+    display: inline-block;
+    float: left;
+  }
+  .DeleteBtn{
+    display : inline-block;
+  }
+  .Details{
+    width: 100% !important;
+  }
+  .market-details {
+    margin: 42px;
+  }
+  .BtnContiner{
+    width: 100%;
+    text-align: center;
+    margin: 15px;
+  }
+  .BtnContiner .btn {
+    background-color: #7d2468 !important;
+    color: white;
+
+  }
+
+  @media(max-width:1200px) and (min-width:992px) {
+    .categroy-child { 
+      min-height: 276px !important;
+    }
+  }
+
+  @media (max-width: 992px) and (min-width: 768px){
+    .categroy-child {
+      min-height: 276px!important;
+    }
+  }
+
+  @media (max-width: 768px) and (min-width: 300px){
+    .categroy-child {
+      min-height: 295px!important;
+    }
+  }
+
+  /* @import url(https://fonts.googleapis.com/css?family=Lato:700);
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f0f0f0;
+  } */

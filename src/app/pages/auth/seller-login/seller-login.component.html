@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-12 col-xs-12 text-center">
+      <form role="form" class="login-forme">
+        <div class="ImageCont">
+          <img src="./assets/images/MarketSeller.png" [align]="'login func'">
+          <p> تسجيل الدخول كصاحب متجر </p>
+        </div>
+        <div>
+          <label> رقم الهاتف </label>
+          <input type="number" class="form-control" id="phone" name="phone" [(ngModel)]="UserData.phone">
+        </div>
+        <div>
+          <label> كلمة المرور</label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="UserData.password">
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="remeberMe" [(ngModel)]="UserData.remeberMe"> تذكرني </label>
+        </div>
+
+        <div class="login-submit">
+          <button (click)="onLoginClicked()"> دخول </button>
+        </div>
+        <a class="RrgisterPart" [routerLink]="['/auth/seller-signup']"> ليس لديك اي حساب ؟ سجل معنا كصاحب متجر الان </a>
+        <a class="RrgisterPart" style="display:  block ; margin: 10px" [routerLink]="['/auth/reset-password']"> نسيت كلمه المرور ؟</a>
+        <!--
+        <div class="login-social">
+          <button (click)="socialSignIn('facebook')"> تسجيل الدخول باستخدام الفيسبوك <a href="#"> <i class="fa fa-facebook-f"></i>
+            </a> </button>
+          <button (click)="socialSignIn('google')"> تسجيل الدخول باستخدام جوجل <a href="#"><i class="fa fa-google"></i>
+            </a></button>
+        </div> -->
+      </form>
+    </div>
+  </div>
+</div>

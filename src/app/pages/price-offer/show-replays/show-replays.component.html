@@ -1,0 +1,21 @@
+<section class="replays">
+  <h3 class="text-center"> كل الردود </h3>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-6 col-sm-12" *ngFor="let replay of repleyes">
+        <div class="item">
+          <img *ngIf="!replay.market || !replay.market.Image" src="../../../../assets/images/team_3.jpg" alt=""
+            title="">
+          <img *ngIf="replay.market && replay.market.Image"
+            [src]="ImageBase + '/' + replay.market.Image.for + '/' + replay.market.Image.name" alt="" title="">
+          <h3> {{ replay.market.name }} </h3>
+          <span> السعر المقدم : {{  replay.price}} جنيه </span>
+          <span> {{replay.comment}} </span>
+          <a [routerLink]="['/chat/' + replay.market_id + '/' + UserData.id]" *ngIf="UserData.category == 'customer'">
+            <i class="fa fa-commenting-o" aria-hidden="true"></i> </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

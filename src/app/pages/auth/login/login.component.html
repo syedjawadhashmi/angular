@@ -1,0 +1,128 @@
+<input type="file" style="display : none" #file id="file" (change)="onFileChanges($event)" accept=".png, .jpg, .jpeg">
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-12 col-xs-12 text-center" *ngIf="pageType == 'signup'">
+      <form role="form" class="login-forme">
+        <div class="login-btn">
+          <button (click)="onNavigateClicked('login')"> تسجيل الدخول </button>
+          <button (click)="onNavigateClicked('signup')"> <span class="active"> انشاء حساب جديد</span></button>
+        </div>
+        <div class="imagContiner">
+          <img *ngIf="UserData.image && UserData.image.base64" [src]="'data:image/jpeg;base64,' + UserData.image.base64"
+            (click)="file.click()" id="UserImage" [alt]="UserData.name" >
+          <img *ngIf="!UserData.image || !UserData.image.base64" src="./assets/images/image.png" [alt]="UserData.name"  (click)="file.click()">
+          <label> صوره المستخدم </label>
+        </div>
+
+        <div>
+          <label> الاسم </label>
+          <input type="text" id="name" class="form-control" name="name" [(ngModel)]="UserData.name">
+        </div>
+        <div>
+          <label> البريد الالكتروني </label>
+          <input type="email" id="email" class="form-control" name="email" [(ngModel)]="UserData.email">
+        </div>
+        <div>
+          <label> رقم الهاتف </label>
+          <input type="number" id="phone" class="form-control" name="phone" [(ngModel)]="UserData.phone">
+        </div>
+        <div>
+          <label> النوع </label>
+          <select class="form-control" id="geneder" name="gender" [(ngModel)]="UserData.gender">
+            <option value='male'> ذكر </option>
+            <option value='male'> انثي </option>
+          </select>
+        </div>
+
+        <div>
+          <label> المحافظه </label>
+          <select class="form-control" name="country" id="country" [(ngModel)]="UserData.country" (change)="onCountryChange()">
+            <option *ngFor="let country of AllCountry" [value]="country.id"> {{ country.name }} </option>
+          </select>
+        </div>
+
+        <div>
+          <label> المدينه </label>
+          <select class="form-control" name="city" id="city" [(ngModel)]="UserData.city">
+            <option *ngFor="let city of FilterdCities" [value]="city.id"> {{ city.name }} </option>
+          </select>
+        </div>
+
+        <div>
+          <label> كلمة المرور</label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="UserData.password">
+        </div>
+        <div>
+          <label> تاكيد كلمة المرور</label>
+          <input type="password" class="form-control" id="password_confirm" name="passwordConfirm" [(ngModel)]="UserData.password_confirm">
+        </div>
+        <div class="login-submit">
+          <button (click)="onSignupClicked()"> تسجيل جديد</button>
+        </div>
+        <button type="button" class="btn btn-link" (click)="pageType = 'login'" > لديك حساب ؟ تسجيل دخول الان  </button>
+        <div class="login-social">
+          <button (click)="socialSignIn('facebook')"> استخدام بيانات الفيس بوك <a href="#"> <i class="fa fa-facebook-f"></i>
+            </a> </button>
+          <!-- <button (click)="socialSignIn('google')"> استخدام بيانات جوجل <a href="#"><i class="fa fa-google"></i>
+            </a></button> -->
+        </div>
+      </form>
+    </div>
+
+    <div class="col-lg-12 col-xs-12 text-center" *ngIf="pageType == 'login'">
+      <form role="form" class="login-forme">
+        <div class="login-btn">
+          <button (click)="onNavigateClicked('login')"> <span class="active"> تسجيل الدخول</span> </button>
+          <button (click)="onNavigateClicked('signup')"> انشاء حساب جديد</button>
+        </div>
+        <div>
+          <label> رقم الهاتف </label>
+          <input type="number" class="form-control" id="phone" name="phone" [(ngModel)]="UserData.phone">
+        </div>
+        <div>
+          <label> كلمة المرور</label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="UserData.password">
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="remeberMe" [(ngModel)]="UserData.remeberMe"> تذكرني </label>
+        </div>
+
+        <div class="login-submit">
+          <button (click)="onLoginClicked()"> دخول </button>
+        </div>
+        <button type="button" class="btn btn-link" (click)="pageType = 'signup'" > ليس لديك حساب ؟ انشئ حساب الان  </button>
+        <div class="login-social">
+          <button (click)="socialSignIn('facebook')"> تسجيل الدخول باستخدام الفيسبوك <a href="#"> <i class="fa fa-facebook-f"></i>
+            </a> </button>
+          <!-- <button (click)="socialSignIn('google')"> تسجيل الدخول باستخدام جوجل <a href="#"><i class="fa fa-google"></i>
+            </a></button> -->
+        </div>
+        <button type="button" style="display: block;  margin: 10px;width: 100%; text-align: center;" class="btn btn-link" [routerLink]="['/auth/reset-password']" > نسيت كلمه المرور ؟  </button>
+      </form>
+    </div>
+
+    <div class="col-lg-5 col-xs-12 text-center" *ngIf="pageType == 'messageSent'">
+      <form role="form" class="login-forme">
+
+        <div>
+          <label> رقم الاتصال الخاص بك </label>
+          <br>
+          <input type="number" class="form-control">
+        </div>
+        <h2> مرحبا بك فى </h2>
+        <!-- <img src="" alt=""> -->
+        <div>
+          <br>
+          <input type="text" class="form-control" placeholder="الاسم الاول ">
+        </div>
+        <div>
+          <br>
+          <input type="text" class="form-control" placeholder=" اسم العائلة ">
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

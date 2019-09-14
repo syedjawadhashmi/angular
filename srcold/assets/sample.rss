@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rss version="2.0"
+xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+xmlns:atom="http://www.w3.org/2005/Atom">
+<channel> 
+<atom:link href="https://www.alaunna.com/sample.rss" rel="self" type="application/rss+xml" />
+<title>ألاأونا تسوق بسهولة</title>
+<link>https://www.alaunna.com</link>
+<description>New from Alaunna</description>
+<language>en</language>
+<pubDate>Sun, 03 Feb 2019 15:20:00 +0100</pubDate>
+<lastBuildDate>Sun, 25 Aug 2019 15:20:00 +0100</lastBuildDate>
+<image>
+      <url>https://alaunna.com/api/images/Alaunna.png</url>
+      <title>ألاأونا تسوق بسهولة</title>
+      <link>https://www.alaunna.com</link>
+</image>
+
+<item>
+<title>ملابس</title>
+<link>https://alaunna.com/products/10-%D9%85%D9%84%D8%A7%D8%A8%D8%B3%20.html</link>
+<guid>https://alaunna.com/products/10-%D9%85%D9%84%D8%A7%D8%A8%D8%B3%20.html</guid>
+<description></description>
+<category>ملابس</category>
+<pubDate>Wed, 4 Feb 2019 18:42:00 +0100</pubDate>
+<content:encoded><![CDATA[<img src="" hspace="5" align="left" >]]></content:encoded>
+</item>
+
+
+<item>
+<title>أحذية</title>
+<link>https://alaunna.com/products/11-%D8%A3%D8%AD%D8%B0%D9%8A%D9%87.html</link>
+<guid>https://alaunna.com/products/11-%D8%A3%D8%AD%D8%B0%D9%8A%D9%87.html</guid>
+<description></description>
+<category>أحذية</category>
+<pubDate>Wed, 5 Feb 2019 18:42:00 +0100</pubDate>
+<content:encoded><![CDATA[<img src="" hspace="5" align="left" >]]></content:encoded>
+</item>
+
+
+
+<item>
+<title>فساتين زفاف وسهرة</title>
+<link>https://alaunna.com/products/14-فساتين%20زفاف%20وسهره.html</link>
+<guid>https://alaunna.com/products/14-فساتين%20زفاف%20وسهره.html</guid>
+<description></description>
+<category>فساتين زفاف وسهرة</category>
+<pubDate>Wed, 5 Feb 2019 18:42:00 +0100</pubDate>
+<content:encoded><![CDATA[<img src="" hspace="5" align="left" >]]></content:encoded>
+</item>
+
+
+<item>
+<title>الصحة والجمال</title>
+<link>https://alaunna.com/products/15-%D8%A7%D9%84%D8%B5%D8%AD%D9%87%20%D9%88%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D9%84%20.html</link>
+<guid>https://alaunna.com/products/15-%D8%A7%D9%84%D8%B5%D8%AD%D9%87%20%D9%88%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D9%84%20.html</guid>
+<description></description>
+<category>الصحة والجمال</category>
+<pubDate>Wed, 6 Feb 2019 18:42:00 +0100</pubDate>
+<content:encoded><![CDATA[<img src="" hspace="5" align="left" >]]></content:encoded>
+</item>
+
+
+
+<item>
+<title>نظارات</title>
+<link>https://alaunna.com/products/16-%D9%86%D8%B8%D8%A7%D8%B1%D8%A7%D8%AA.html</link>
+<guid>https://alaunna.com/products/16-%D9%86%D8%B8%D8%A7%D8%B1%D8%A7%D8%AA.html</guid>
+<description></description>
+<category>نظارات</category>
+<pubDate>Wed, 7 Feb 2019 18:42:00 +0100</pubDate>
+<content:encoded><![CDATA[<img src="" hspace="5" align="left" >]]></content:encoded>
+</item>
+
+
+<item>
+<title>أجهزة كهربائية</title>
+<link>https://alaunna.com/products/19-%D8%A3%D8%AC%D9%87%D8%B2%D9%87%20%D9%83%D9%87%D8%B1%D8%A8%D8%A7%D8%A6%D9%8A%D9%87.html</link>
+<guid>https://alaunna.com/products/19-%D8%A3%D8%AC%D9%87%D8%B2%D9%87%20%D9%83%D9%87%D8%B1%D8%A8%D8%A7%D8%A6%D9%8A%D9%87.html</guid>
+<description></description>
+<category>أجهزة كهربائية</category>
+<pubDate>Wed, 8 Feb 2019 18:42:00 +0100</pubDate>
+<content:encoded><![CDATA[<img src="" hspace="5" align="left" >]]></content:encoded>
+</item>
+
+
+
+</channel>
+</rss>

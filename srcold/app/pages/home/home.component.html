@@ -1,0 +1,184 @@
+<!-- end drop downs-->
+<!--start slied-->
+<section class=" container alauna-slide">
+
+  <div class="swiper-container" id="MainAds" #MainAds [swiper]="Swiperconfig" [(index)]="Swiperindex">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide" *ngFor="let slide of SliderAds.slice(0 , 5); let i = index">
+        <a [href]="slide.link" target="blank">
+          <img class="SlideImage" *ngIf="!slide.image" src="assets/images/Group 472.png" alt="alaunna" title="alaunna">
+          <img class="SlideImage" *ngIf="slide.image"
+            [src]="ImageBase +  '/' + slide.image.for + '/big/' + slide.image.name " [alt]="slide.image.alt"
+            [longDesc]="slide.image.description" #slideImage
+            (error)="slideImage.src = ImageBase +  '/' + slide.image.for + '/' + slide.image.name">
+        </a>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+
+<!--End slied-->
+<!--start  our offers!-->
+
+
+<!-- start sider 2 --------------->
+
+<div class="container">
+
+  <div class="row ">
+
+    <div class="col-lg-6 col-md-6">
+      <div class="row" style="margin-left:0">
+        <div class="col-md-12" *ngFor="let productCat of CategoriesProduct; let i = index">
+          <h1 [title]="productCat.name" class="off-h" *ngIf="productCat.markets.length">
+            <a [routerLink]="['/markets/show']" [queryParams]="{'category_id' : productCat.id}" style="color: white">
+              متاجر {{ productCat.name }}
+            </a> </h1>
+          <div class="swiper-container vl-slide" *ngIf="productCat.markets.length" [swiper]="VerticalSliderConfig"
+            [(index)]="sliderIndex[i + 5]">
+            <div class="swiper-wrapper ">
+              <div class="swiper-slide"
+                *ngFor="let item of productCat.markets.slice(0, math.ceil(productCat.markets.length / 4)); let i = index">
+                <div class="col-lg-6 col-md-6 col-sm-4 col-xs-6 item-alauna"
+                  *ngFor="let market of productCat.markets.slice(i*4 , (i*4) + 4)">
+                  <div class="img-poster">
+
+                    <a [routerLink]="['/markets/details/' + market.id + '_' + market.name ]">
+                      <img class="poster" *ngIf="market.cover" [alt]="market.cover.alt"
+                        [src]="ImageBase+ '/' + market.cover.for + '/small/' + market.cover.name"
+                        [longDesc]="market.cover.description" #cover
+                        (error)="cover.src = ImageBase+ '/' + market.cover.for + '/' + market.cover.name">
+
+                      <img class="poster" *ngIf="!market.cover" [alt]="market.name"
+                        src="assets/images/fdbf6d5c07624eec942bde51e686a762540a3705.jpg" alt="1" title="1">
+                    </a>
+
+                    <div class="logo-name">
+                      <h4 title="اسم المتجر" class="text-center"> </h4>
+                      <a [routerLink]="['/markets/details/' + market.id + '_' + market.name ]">
+                        <img *ngIf="!market.Image" src="assets/images/fdbf6d5c07624eec942bde51e686a762540a3705.jpg"
+                          [alt]="market.name">
+
+                        <img *ngIf="market.Image"
+                          [src]="ImageBase + '/' + market.Image.for + '/small/' + market.Image.name" [alt]="market.Image.alt"
+                          [longDesc]="market.Image.description" #logo
+                          (error)="logo.src = ImageBase + '/' + market.Image.for + '/' + market.Image.name">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-button-prev" style="position: absolute;top: 3%;right: 46%;">
+              <i class="fa fa-angle-double-up fa-4x"></i></div>
+            <div class="swiper-button-next" style="position: absolute;right: 46%;top: 95%;">
+              <i class="fa fa-angle-double-down fa-4x"></i></div>
+          </div>
+
+          <a [href]="SliderAds[i+5].link" target="_blank">
+            <img style="width: 100%; height: 150px;padding:8px" *ngIf="SliderAds[i + 5]"
+              [src]=" ImageBase + '/' +SliderAds[i+5].image.for + '/small/' +  SliderAds[i+5].image.name"
+              [alt]="SliderAds[i+5].image.alt" [longDesc]="SliderAds[i+5].image.description" #SlideImageTow
+              (error)="SlideImageTow.src =  ImageBase + '/' +SliderAds[i+5].image.for + '/' +  SliderAds[i+5].image.name">
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-6 col-md-6">
+      <div class="row">
+        <div class="col-md-12" *ngFor="let offer of Offers; let i = index;let j = index">
+
+          <h1 [title]="offersType[offer.title]" class="off-h" *ngIf="offer.data.length">
+            <a [routerLink]="['/offers']" [queryParams]="{offer_type : offersTypeNumbers[offer.title] }"
+              style="color: white">
+              {{ offersType[offer.title] }}
+            </a>
+          </h1>
+
+          <div class="swiper-container vl-slide" *ngIf="offer.data.length" [swiper]="VerticalSliderConfigProduct"
+            [(index)]="sliderIndex[i]">
+            <div class="swiper-wrapper ">
+              <div class="swiper-slide"
+                *ngFor="let item of offer.data.slice(0, math.ceil(offer.data.length / 4)); let i = index">
+                <div class="col-lg-6 col-md-6 col-sm-4 col-xs-6 item-alauna myLeftProduct"
+                  *ngFor="let product of offer.data.slice(i*4 , (i*4) + 4)">
+
+                  <a
+                    [routerLink]="['/products/details/' + product.category.name + '/' +product.subCategory.name + '/' + product.id +'-' +product.name]">
+                    <img class="ImageOfferPoster" *ngIf="!product.images || product.images.length <= 0"
+                      src="assets/images/shampo.png" width="150" height="150" alt="alaunna" title="alaunna" />
+
+                    <img class="ImageOfferPoster" *ngIf="product.images && product.images.length > 0"
+                      [src]=" ImageBase + '/' + product.images[productController.getMainImageIndex(product.images)].for  + '/medium/' + product.images[productController.getMainImageIndex(product.images)].name"
+                      [alt]="product.images[productController.getMainImageIndex(product.images)].alt" 
+                      [longDesc]="product.images[productController.getMainImageIndex(product.images)].description"
+                      #ProducctImage
+                      (error)="ProducctImage.src = ImageBase + '/' + product.images[productController.getMainImageIndex(product.images)].for  + '/' + product.images[productController.getMainImageIndex(product.images)].name" />
+                  </a>
+
+
+                  <div class="product-disc">
+                    <div>
+                      <h5> {{ product.name | slice:0:50 }}
+                        <!-- <span *ngIf="product.name.length > 15"> ..... </span> -->
+                      </h5>
+                    </div>
+                    <div>
+                      <p *ngIf="product.offer.offer_type != 2 && product.offer.offer_type != 3 " class="new-price"
+                        title=" جديد">
+                        {{ product['market'][0]['Market_Products']['Selling_price'] -
+                        (product['market'][0]['Market_Products']['Selling_price'] * product.offer.value /100) }} جنية
+                      </p>
+                      <p class="new-price" title=" قديم"
+                        *ngIf="product.offer.offer_type == 2 || product.offer.offer_type == 3">
+                        {{product['market'][0]['Market_Products']['Selling_price']}} جنيه </p>
+
+                      <!-- <p class="new-price" *ngIf="product.offer.offer_type != 1">
+                        {{ product.name }}
+                      </p> -->
+
+                      <a class="Cart" style="float: left;margin-top: -5px;"
+                        (click)="productController.onAddToCart(product , false , 1)">
+                        <i class="fa fa-shopping-cart fa-2x"></i>
+                      </a>
+                      <a class="Heart" style="float: left; margin-left: 10px;margin-top: -5px;"
+                        (click)="onAddProductToFavorite(product)">
+                        <i class="fa fa-heart fa-2x"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="swiper-button-prev" style="position: absolute;top: 3%;right: 46%;">
+              <i class="fa fa-angle-double-up fa-4x"></i></div>
+            <div class="swiper-button-next" style="position: absolute;right: 46%;top: 95%;">
+              <i class="fa fa-angle-double-down fa-4x"></i></div>
+          </div>
+
+          <!-- {{i+ CategoriesProduct.length + 5}} -->
+          <a [href]="SliderAds[i+5+ CategoriesProduct.length ].link" >
+              <img style="width: 100%; height: 150px;padding:8px"
+              *ngIf="CategoriesProduct && offer.data.length && SliderAds[i + CategoriesProduct.length +  5]"
+              [src]=" ImageBase + '/' +SliderAds[i+ CategoriesProduct.length + 5].image.for + '/small/' +  SliderAds[i+ CategoriesProduct.length +5].image.name"
+              [alt]="SliderAds[i+ CategoriesProduct.length +5].image.alt"
+              [longDesc]="SliderAds[i+ 5 + CategoriesProduct.length ].image.description"
+              #SmallImageOne
+              (error)="SmallImageOne.src = ImageBase + '/' +SliderAds[i+ CategoriesProduct.length +5].image.for + '/' +  SliderAds[i+ CategoriesProduct.length +5].image.name">
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <app-profile></app-profile> -->

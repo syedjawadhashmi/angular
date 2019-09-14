@@ -1,0 +1,328 @@
+<!-- <div> -->
+<img src="assets/images/Untitled.png" alt="alaunna" width="50px">
+
+<button class="btn btn-primary" (click)="onFollowMarketClicked()"> متابعة المتجر </button>
+<!-- <button type="button" class="btn btn-success" [popover]="marketDetails" popoverTitle="بيانات المتجر">
+    <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
+    {{MarketData.name}}
+  </button> -->
+
+<button type="button" class="btn btn-success" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+  aria-controls="collapseBasic" popoverTitle="بيانات المتجر">
+  <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
+  {{MarketData.name}}
+</button>
+<div id="collapseBasic" [collapse]="isCollapsed" >
+  <div class="well well-lg card card-block card-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="name">
+            <h3> إسم المتجر </h3>
+            <p> {{MarketData.name }} </p>
+            <p> {{ MarketData.description }} </p>
+          </div>
+          <div class="address">
+            <p title=" تفاصيل العنوان " class="market-address"> {{MarketData.address}} </p>
+          </div>
+          <div class="info">
+            <ul>
+              <li> <a title="رقم التليفون" href="tel:{{MarketData.phone}}"> <i class="fa fa-phone"></i> اتصل بنا
+                </a> </li>
+              <li> <a [href]="'https://maps.google.com/maps?q='+MarketData.lat+','+MarketData.lng+''" target="_blank">
+                  <i class="fa fa-map-marker"></i> مكان المتجر علي الخريطه </a> </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="social-links">
+            <h5> تواصل معنا </h5>
+            <ul>
+              <li> <a title="facebook" href=" {{ MarketData.facebook }} " target="_blank"> <i
+                    class="fa fa-facebook"></i> </a> </li>
+              <li> <a title="facebook" href=" {{ MarketData.twitter }} " target="_blank"> <i class="fa fa-twitter"></i>
+                </a> </li>
+              <li> <a title="facebook" href=" {{ MarketData.instagram }} " target="_blank"> <i
+                    class="fa fa-instagram"></i> </a> </li>
+              <li> <a title="facebook" href=" {{ MarketData.linkedin }} " target="_blank"> <i
+                    class="fa fa-linkedin"></i> </a> </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-sm-4" *ngIf="MarketData.oppning_hours">
+          <h4 *ngIf="MarketData.oppning_hours['Sunday'] ||
+           MarketData.oppning_hours['Monday'] ||
+           MarketData.oppning_hours['Tuesday'] || 
+           MarketData.oppning_hours['Wednesday'] || 
+           MarketData.oppning_hours['Thursday'] || 
+           MarketData.oppning_hours['Friday'] ||
+           MarketData.oppning_hours['Saturday']"> ساعات العمل </h4>
+          <ul class="times">
+            <li *ngIf="MarketData.oppning_hours['Sunday']">
+              <strong> الأحد </strong>
+              <span> {{ MarketData.oppning_hours['Sunday'] }} </span>
+            </li>
+            <li *ngIf="MarketData.oppning_hours['Monday']">
+              <strong> الاثنين </strong>
+              <span> {{ MarketData.oppning_hours['Monday'] }} </span>
+            </li>
+            <li *ngIf="MarketData.oppning_hours['Tuesday']">
+              <strong> الثلاثاء </strong>
+              <span> {{ MarketData.oppning_hours['Tuesday'] }} </span>
+            </li>
+            <li *ngIf="MarketData.oppning_hours['Wednesday']">
+              <strong> الاربعاء </strong>
+              <span> {{ MarketData.oppning_hours['Wednesday'] }} </span>
+            </li>
+            <li *ngIf="MarketData.oppning_hours['Thursday']">
+              <strong> الخميس </strong>
+              <span> {{ MarketData.oppning_hours['Thursday'] }} </span>
+            </li>
+            <li *ngIf="MarketData.oppning_hours['Friday']">
+              <strong> الجمعه </strong>
+              <span> {{ MarketData.oppning_hours['Friday'] }} </span>
+            </li>
+            <li *ngIf="MarketData.oppning_hours['Saturday']">
+              <strong> السبت </strong>
+              <span> {{ MarketData.oppning_hours['Saturday'] }} </span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class=" container alauna-slide">
+  <swiper [config]="Swiperconfig" [(index)]="Swiperindex">
+    <div dir="ltr" *ngFor="let slide of Banners; let i = index">
+      <img class="SlideImage" *ngIf="!slide.image" src="assets/images/Group 472.png" alt="alaunna" title="allaona"
+        style="display: block;width:100%">
+      <img class="SlideImage" *ngIf="slide.image"
+        [src]="ImageBase +  '/' + slide.image.for + '/medium/' + slide.image.name " [alt]="slide.image.alt"
+        [longDesc]="slide.image.title" #SlideImg
+        (error)="SlideImg.src = ImageBase +  '/' + slide.image.for + '/' + slide.image.name ">
+      <div class="carousel-caption d-none d-md-block">
+        <h3> {{ slide.title }} </h3>
+        <p> {{slide.description}} </p>
+      </div>
+    </div>
+  </swiper>
+</section>
+
+
+
+<!-- END cover -->
+<section class="category">
+
+  <!-- if you uncmment this becarefull  -->
+  <!-- <div class="category-alll" *ngFor="let item of SubCategoriesWithProducts">
+      <h1 *ngIf="item.products.length"> <a [routerLink]="['/products']"
+          [queryParams]="{market_id : MarketData.id , subcategory_id : item.id , for_market : true}">
+          {{item.name}} </a> </h1>
+      <div class="categroy-perant-1"
+        *ngFor="let parent of item.products.slice(0, math.ceil(item.products.length / 4));let i = index">
+
+        <div class="categroy-child" *ngFor="let product of item.products.slice(i*4 , (i*4) + 4)">
+          <div class="market-name"
+            *ngIf=" UserData &&UserData.category == 'seller' && UserData.markets[0] && UserData.markets['0']['id'] == MarketData.id">
+            <a [routerLink]="['/products/edit/' + product.id]"> تعديل </a>
+          </div>
+          <img *ngIf="product.images.length > 0" class="market-img" [src]="ImageBase + '/' +product.images[0].for + '/' + product.images[0].name "
+            [alt]="product.name" (click)="onProductDetailsClciked(product)">
+
+          <img *ngIf="product.images.length <= 0" class=" market-img" src="https://via.placeholder.com/150" [alt]="product.name"
+            (click)="onProductDetailsClciked(product)">
+
+          <p class="disc" title="وصف المنتج "> {{ product.name | slice:0:25 }}
+            </p>
+          <span class="price"
+            *ngIf="product.offer && (product.offer.offer_type == 1 || product.offer.offer_type == 4 || product.offer.offer_type == 5 )">
+            Egp {{ product.market[0].Market_Products['Selling_price'] -
+            (product.market[0].Market_Products['Selling_price'] * (product.offer['value'] / 100)) }}
+          </span>
+          <span class="price" *ngIf="!product.offer || (product.offer && (product.offer.offer_type == 2 || product.offer.offer_type == 3))" >
+            EGP {{ product.market[0].Market_Products['Selling_price'] }}
+          </span>
+          <span class="old-price" *ngIf="product.offer && product.offer.offer_type == 2">
+            قطعتين بتمن قطعه
+          </span>
+
+          <span class="old-price" *ngIf="product.offer && product.offer.offer_type == 3">
+            ثلاثه قطع بثمن واحده
+          </span>
+          <span class="old-price" *ngIf="!product.offer">
+            لا يوجد عروض
+            <p></p>
+          </span>
+          <div class="my_icons">
+            <a href="javascript:void(0)" (click)="productsService.onAddToCart(product , false , 1)">
+              <i class="fa fa-shopping-cart fa-2x"></i>
+            </a>
+            <a href="javascript:void(0)" (click)="onAddToFavoritePressed(product)">
+              <i class="fa fa-heart fa-2x"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div *ngIf="item.products.length " class="row">
+        <div class="col-lg-12" style="text-align: center" >
+          <a title="تحميل المزيد" [routerLink]="['/products']"
+          [queryParams]="{market_id : MarketData.id , subcategory_id : item.id , for_market : true}" class="show-more">تحميل المزيد</a>
+        </div>
+      </div>
+    </div> -->
+
+  <section class="category">
+
+    <!-- <h3 *ngIf="!filteredProducts.length" style="text-align: center"> لا يوجد اي منتجات لعرضها </h3> -->
+
+    <div class="category-alll" id="productsContainer" infinite-scroll [infiniteScrollDistance]="1"
+      [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="300" [scrollWindow]="false" [fromRoot]="true"
+      [infiniteScrollContainer]="'.ng-sidebar__content'" (scrolled)="onScroll()">
+
+      <div class="categroy-perant-1"
+        *ngFor="let parent of filteredProducts.slice(0, math.ceil(filteredProducts.length / 4));let i = index">
+
+        <div class="categroy-child box" *ngFor="let product of filteredProducts.slice(i*4 , (i*4) + 4)">
+          <div class="market-name">
+            <div class="productOffer" *ngIf="product.offer && product.offer.value != 0">
+              <span> خصم {{ product.offer.value }} % </span>
+            </div>
+            <!-- <a href="javascript:void(0)" *ngIf="
+                   !UserData ||
+                   !UserData['markets'] ||
+                   !UserData['markets'][0] ||
+                   UserData['markets'][0].id != product.market[0].id"
+                   (click)="onMarketDetailsClicked(product.market[0])"> {{ product.market[0].name |
+                  slice:0:25 }}
+                </a> -->
+            <a *ngIf="
+                UserData &&
+                UserData['markets'] &&
+                UserData['markets'][0] &&
+                UserData['markets'][0].id == product.market[0].id " [routerLink]="['/products/edit/' + product.id]">
+              تعديل
+            </a>
+            <a *ngIf="
+                  UserData &&
+                  UserData['markets'] &&
+                  UserData['markets'][0] &&
+                  UserData['markets'][0].id == product.market[0].id " [routerLink]="['/products/edit/' + product.id]"
+              style="float: right;" [ngStyle]="{'background-color': product.status == 'active' ? 'green' : 'red'}">
+              {{ ProductStatus[product.status] }} </a>
+          </div>
+
+
+          <a
+            [routerLink]="['/products/details/' +product.category.name +'/' +product.subCategory.name + '/' +product.id + '_' +product.name]">
+            <img *ngIf="product.images.length > 0" class="market-img"
+              [src]="ImageBase + '/' +product.images[productsService.getMainImageIndex(product.images)].for + '/' + product.images[productsService.getMainImageIndex(product.images)].name "
+              [alt]="product.images[productsService.getMainImageIndex(product.images)].alt"
+              [longDesc]="product.images[productsService.getMainImageIndex(product.images)].description">
+            <img *ngIf="product.images.length <= 0" class=" market-img" src="https://via.placeholder.com/150"
+              [alt]="product.name">
+          </a>
+
+
+          <p class="disc" title="وصف المنتج ">
+            {{ product.name | slice:0:25 }}
+            <!-- <span *ngIf="product.name.length > 15"> ..... </span> -->
+          </p>
+          <span class="price"
+            *ngIf="product.offer && (product.offer.offer_type == 1 || product.offer.offer_type == 4 || product.offer.offer_type == 5 )">
+            {{ product['market'][0]['Market_Products']['Selling_price'] -
+                (product['market'][0]['Market_Products']['Selling_price'] * product.offer.value /100) }} جنية
+          </span>
+
+          <span class="price"
+            *ngIf="!product.offer || (product.offer && (product.offer.offer_type == 2 || product.offer.offer_type == 3))">
+            EGP {{ product.market[0].Market_Products['Selling_price'] }}
+          </span>
+
+          <!-- <span class="old-price" *ngIf="product.offer && product.offer.foffer_type == 2">
+              قطعتين بثمن قطعه
+              </span>
+
+              <span class="old-price" *ngIf="product.offer && product.offer.offer_type == 3">
+                ثلاثه قطع بثمن قطعه
+              </span>
+              <span class="old-price" *ngIf="!product.offer">
+
+              </span> -->
+          <div class="my_icons">
+            <a href="javascript:void(0)" (click)="productsService.onAddToCart(product, false ,1)">
+              <i class="fa fa-shopping-cart fa-2x"></i>
+            </a>
+            <a href="javascript:void(0)" (click)="onAddToFavoritePressed(product)">
+              <i class="fa fa-heart fa-2x"></i>
+            </a>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+      </div>
+    </div>
+    <div class="clear"></div>
+
+    <!-- <div class="container" *ngIf="showMore">
+          <div class="row">
+            <div class="col-lg-12 load-more">
+              <a title="تحميل المزيد" (click)="onScroll()" class="show-more">تحميل المزيد</a>
+            </div>
+          </div>
+        </div> -->
+    <!-- <button  class="more-product"(click)="onLoadMoreClicked()" > تحميل المزيد من المنتجات </button> -->
+  </section>
+
+</section>
+<ng-template #marketDetails>
+  <div class="market-looge">
+    <!-- <a [routerLink]="['/markets/details/' + market.id + '_' + market.name]" >
+        <img *ngIf="!market.Image" src="https://via.placeholder.com/150" [alt]="market.name" >
+        <img *ngIf="market.Image" [src]="ImageBase + '/' + market.Image.for + '/small/' + market.Image.name " [alt]="market.name"
+          [title]="market.Image.description" #MarketLogo
+          (error)="MarketLogo.src = ImageBase + '/' + market.Image.for + '/small/' + market.Image.name " >
+      </a> -->
+
+    <!-- <a [routerLink]="['/markets/details/' + MarketData.id + '_' + ProductData.market[0].name]"> -->
+    <h2 class=" text-center" title="اسم المتجر "> اسم المتجر </h2>
+    <!-- </a> -->
+    <!-- <a [routerLink]="['/markets/details/' + ProductData.market[0].id + '_' + ProductData.market[0].name]">  -->
+    <span class="markeet-Neam"> {{MarketData.name }} </span>
+    <!-- </a> -->
+
+    <!-- <a [routerLink]="['/markets/details/' + ProductData.market[0].id + '_' + ProductData.market[0].name]"> -->
+    <h3 title="العنوان" class="text-center"> العنوان <i class="fa fa-map-marker"></i></h3>
+    <!-- </a> -->
+    <p title=" تفاصيل العنوان " class="market-address text-center"> {{MarketData.address}} </p>
+
+
+    <h3 title="رقم التليفون" class="text-center"> رقم التليفون <i class="fa fa-map-marker"></i></h3>
+    <!-- </a> -->
+    <p title=" رقم التليفون" class="market-address text-center"> {{MarketData.Owner?.phone}} </p>
+
+
+
+    <!-- <a [routerLink]="['/markets/details/' + market.id + '_' + market.name]">
+        <h3 title="رقم الهاتف الخاص بالمتجر" class="text-center"> رقم الهاتف <i class="fas fa-phone-volume"></i>
+        </h3>
+      </a>
+      <p title="رقم الهاتف" class="market-address text-center"> {{market.Owner?.phone}} </p> -->
+
+    <h3 title="العنوان" class="text-center" class="Marker"> <a
+        [href]="'https://maps.google.com/maps?q='+MarketData.lat+','+MarketData.lng+''"
+        style="color:#FFFF;text-align:left" target="_blank"> مكان المتجر علي الخريطه </a><i
+        class="fa fa-map-marker"></i>
+    </h3>
+  </div>
+</ng-template>  
+
+
+<ngx-json-ld [json]="schema" > 
+</ngx-json-ld>

@@ -1,0 +1,37 @@
+.rating{
+    display: inline-block !important;
+  }
+  .row{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+    margin: 5px;
+  }
+  .ng-fa-icon{
+    color: #fff !important;
+  }
+
+  .categroy-child {
+    width: auto;
+}
+.related-header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 15px 0;
+}
+
+@media(max-width:1200px) and (min-width:992px){
+  .categroy-child {
+    min-height: 325px!important;
+  }
+}

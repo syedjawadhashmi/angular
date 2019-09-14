@@ -1,0 +1,134 @@
+<div class="container">
+  <input type="file" style="display : none" #file id="file" (change)="onFileChanges($event)" accept=".png, .jpg, .jpeg">
+
+  <div class="row">
+    <div class="col-lg-3 col-xs-12 client-data ">
+      <div class="ImageCont  text-center ">
+        <img *ngIf="!UserData.Image" src="./assets/images/MarketSeller.png" (click)="ongetNewImage('userImage')" [alt]="UserData.name">
+        <img *ngIf="UserData.Image && !UserData.Image.base64" [src]="ImageBase + '/' + UserData.Image.for + '/' +UserData.Image.name"
+        [alt]="UserData.name" [title]="UserData.Image.description" (click)="ongetNewImage('userImage')">
+        <img *ngIf="UserData.Image && UserData.Image.base64" [src]="'data:image/jpeg;base64,' + UserData.Image.base64"
+          (click)="ongetNewImage('userImage')">
+      </div>
+
+      <ul>
+        <li> <a (click)="onEditClicked('show')"> بيناتك الشخصية </a></li>
+        <li> <a [routerLink]="['/orders']"> طلباتك </a></li>
+        <li *ngIf="UserData.category == 'seller'"> <a (click)="onEditClicked('market')"> بيانات المتجر </a></li>
+        <li *ngIf="UserData.category == 'seller'"> <a [routerLink]="['/products/show']" [queryParams]="{market_id : UserData.markets[0].id  ,for_market : true}">
+            منتجاتي </a></li>
+        <li> <a [routerLink]="['/user/favorite']"> مفضلتك <i class="fa fa-heart "></i> </a></li>
+
+        <li *ngIf="UserData.category != 'seller'"> <a [routerLink]="['/user/cart']"> سلة الشراء <i class="fa fa-shopping-cart "></i></a></li>
+        <li> <a [routerLink]="['/user/timeline']"> الجدول الزمني </a></li>
+
+      </ul>
+    </div>
+    <div class="col-lg-5 col-xs-12 text-center profile-all" *ngIf="PageType == 'edit' || PageType == 'show'">
+      <form role="form" class="profile">
+        <div>
+          <label> الاسم </label>
+          <h3 *ngIf="PageType == 'show'"> {{ UserData.name }} </h3>
+          <input *ngIf="PageType == 'edit'" type="text" id="name" class="form-control" name="name" [(ngModel)]="UserData.name">
+        </div>
+        <div>
+          <label> البريد الالكتروني </label>
+          <h3 *ngIf="PageType == 'show'"> {{ UserData.email }} </h3>
+          <input *ngIf="PageType == 'edit'" type="text" id="email" class="form-control" name="email" [(ngModel)]="UserData.email">
+        </div>
+        <div>
+          <label> رقم الهاتف </label>
+          <h3 *ngIf="PageType == 'show'"> {{ UserData.phone }} </h3>
+          <input *ngIf="PageType == 'edit'" type="text" id="phone" class="form-control" name="phone" [(ngModel)]="UserData.phone">
+        </div>
+        <div>
+          <label> المحافظه </label>
+          <h3 *ngIf="PageType == 'show'"> {{UserData.Country?.name }} </h3>
+          <select *ngIf="PageType == 'edit'" class="form-control" name="country" id="country" [(ngModel)]="UserData.country_id">
+            <option *ngFor="let country of AllCountry" [value]="country.id"> {{country.name}} </option>
+          </select>
+        </div>
+
+        <div>
+          <label> المدينه </label>
+          <h3 *ngIf="PageType == 'show'"> {{ UserData.City?.name }} </h3>
+          <select *ngIf="PageType == 'edit'" class="form-control" name="city_id" id="city_id" [(ngModel)]="UserData.city_id">
+            <option *ngFor="let city of FilterdCities" [value]="city.id"> {{city.name}} </option>
+          </select>
+        </div>
+
+        <div *ngIf="PageType == 'edit'">
+          <label> كلمه المرور القديمه </label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="UserData.password">
+        </div>
+
+        <div *ngIf="PageType == 'edit'">
+          <label> كلمه المرور الجديده </label>
+          <input type="password" class="form-control" id="newPassword" name="newPassword" [(ngModel)]="UserData.newPassword">
+        </div>
+        <div *ngIf="PageType == 'edit'">
+          <label> تأكيد كلمه المرور الجديده </label>
+          <input *ngIf="PageType == 'edit'" type="password" class="form-control" id="newPasswordConfirmation" name="newPasswordConfirmation"
+            [(ngModel)]="UserData.newPasswordConfirmation">
+        </div>
+        <div class="login-submit">
+          <button *ngIf="PageType == 'edit'" (click)="onSaveClicked()"> حفظ </button>
+          <button *ngIf="PageType == 'show'" (click)="onEditClicked('edit')"> تعديل </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-5 col-xs-12 text-center profile-all" *ngIf="PageType == 'market'">
+      <!-- <h3 title="بيانات" class="text-center"> بيانات المتجر </h3> -->
+      <div class="ImageCoverContiner">
+        <p> كوفر المتجر </p>
+        <img class="normal" *ngIf="!MarketData.cover && !MarketData.cover.base64" src="./assets/images/cover.png"
+          (click)="ongetNewImage('marketCover')" [alt]="MarketData.name">
+        <img class="normal" *ngIf="MarketData.cover && !MarketData.cover.base64" [src]="ImageBase + '/' +MarketData.cover.for + '/' +MarketData.cover.name"
+          (click)="ongetNewImage('marketCover')" [alt]="MarketData.name">
+        <img class="normal" *ngIf="MarketData.cover && MarketData.cover.base64" [src]=" 'data:image/jpeg;base64,' + MarketData.cover.base64"
+          (click)="ongetNewImage('marketCover')" [alt]="MarketData.name">
+
+        <p> لوجو المتجر </p>
+        <img class="logo" *ngIf="!MarketData.Image && !MarketData.Image.base64" src="./assets/images/image.png"
+        (click)="ongetNewImage('marketImage')" [alt]="MarketData.name">
+        <img class="logo" *ngIf="MarketData.Image && !MarketData.Image.base64" [src]="ImageBase + '/' +MarketData.Image.for + '/' +MarketData.Image.name"
+          (click)="ongetNewImage('marketImage')" [alt]="MarketData.name">
+        <img class="logo" *ngIf="MarketData.Image && MarketData.Image.base64" [src]=" 'data:image/jpeg;base64,' + MarketData.Image.base64"
+          (click)="ongetNewImage('marketImage')" [alt]="MarketData.name">
+
+      </div>
+
+      <div>
+        <label> اسم المتجر </label>
+        <input type="text" class="form-control" name="marektName" [(ngModel)]="MarketData.name">
+      </div>
+
+      <p> المكان علي الخريطه </p>
+      <input type="search" id="address-input" name="searchText" placeholder="العنوان" dir="rtl" [(ngModel)]="MarketData.address" />
+      <div id='myMap' #myMap></div>
+
+      <div>
+        <label> المحافظه </label>
+        <select class="form-control" name="country" id="country" [(ngModel)]="MarketData.Country_id" (change)="onCountryChange()">
+          <option *ngFor="let country of AllCountry" [value]="country.id"> {{ country.name }} </option>
+        </select>
+      </div>
+
+      <div>
+        <label> المدينه </label>
+        <select class="form-control" name="city" id="city" [(ngModel)]="MarketData.City_id">
+          <option *ngFor="let city of FilterdCities" [value]="city.id"> {{ city.name }} </option>
+        </select>
+      </div>
+
+      <!-- <div class="file text-center">
+          <span class="span-file "> <i class="fa fa-upload"></i> اللوجوالخاص ب المتجر </span>
+          <input type="file" name="image" class="form-control" placeholder=" اضف صورة الاعلان">
+        </div> -->
+      <div class="login-submit">
+        <button (click)="onEditMarketData()"> تعديل بيانات المتجر </button>
+      </div>
+    </div>
+  </div>
+
+</div>

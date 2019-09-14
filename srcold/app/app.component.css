@@ -1,0 +1,28 @@
+.sticky {
+    background: #fff;
+    box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
+    position: fixed;
+    top: 0;
+    /* height: 120px; */
+    width: 100%;
+    z-index: 999;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+
+}
+ /* .web_homePage{
+    padding-top: 170px ;
+} */
+
+ng-sidebar-container {
+  height: 100vh !important;
+}
+
+
+.ng-sidebar__content{
+  position: relative !important;
+}
+

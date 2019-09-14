@@ -1,0 +1,94 @@
+<section class="price-offer">
+  <h3 class="text-center"> إرسال طلب عرض سعر </h3>
+  <div class="container">
+    <div class="row">
+      <form [formGroup]="priceForm" novalidate (submit)="onsubmit()" >
+        <div class="frame">
+          <div class="center">
+            <div class="dropzone">
+              <img *ngIf="!priceData.image" src="../../../../assets/images/image.png" class="upload-icon" title=""
+                alt="" (click)="Editfile.click()" />
+              <img *ngIf="priceData.image" [src]="'data:image/jpeg;base64,' + priceData.image.base64"
+                class="upload-icon" title="" alt="" (click)="Editfile.click()" />
+
+                <input type="file" style="display : none" #Editfile id="Editfile" (change)="onFileChanges($event)"
+                accept=".png, .jpg, .jpeg">
+            </div>
+          </div>
+          <h5 class="text-center"> تحميل الصورة </h5>
+          <div class="form-group col-sm-12">
+            <label for="name">إسم الطلب </label>
+            <input type="text" class="form-control" id="name" placeholder="أدخل إسم الطلب" 
+              formControlName="name" [(ngModel)]="priceData.name">
+            <small class="form-text text-muted danger"
+              *ngIf="!priceForm.get('name').valid && (priceForm.get('name').dirty || priceForm.get('name').touched)">
+              برجاء كتابه العنصر بشكل صحيح </small>
+          </div>
+          <div class="form-group col-sm-6">
+            <label for="category_id">الفئة</label>
+            <select class="form-control" id="category_id"  formControlName="category_id"
+              [(ngModel)]="priceData.category_id">
+              <option disabled>إختر الفئة</option>
+              <option *ngFor="let cat of categories" [value]="cat.id"> {{cat.name}} </option>
+            </select>
+            <small class="form-text text-muted danger"
+            *ngIf="!priceForm.get('category_id').valid && (priceForm.get('category_id').dirty || priceForm.get('category_id').touched)">
+            برجاء كتابه العنصر بشكل صحيح </small>
+          </div>
+          <div class="form-group col-sm-6">
+            <label for="governorate">المحافظة</label>
+            <select class="form-control" id="governorate" formControlName="country_id"  [(ngModel)]="priceData.country_id" >
+              <option disabled>إختر المحافظة</option>
+              <option *ngFor="let country of countries" [value]="country.id"> {{country.name}} </option>
+            </select>
+            <small class="form-text text-muted danger"
+            *ngIf="!priceForm.get('country_id').valid && (priceForm.get('country_id').dirty || priceForm.get('country_id').touched)">
+            برجاء كتابه العنصر بشكل صحيح </small>
+          </div>
+          <div class="form-group col-sm-12">
+            <label for="description">الوصف</label>
+            <textarea class="form-control" id="description" rows="5" formControlName="description"
+              [(ngModel)]="priceData.description"></textarea>
+            <small class="form-text text-muted danger"
+              *ngIf="!priceForm.get('description').valid && (priceForm.get('description').dirty || priceForm.get('description').touched)">
+              برجاء كتابه العنصر بشكل صحيح </small>
+          </div>
+        </div>
+
+        <div class="frame frame2">
+          <div class="row">
+            <div class="col-xs-6">
+              <strong> تحديد المتاجر </strong>
+            </div>
+            <div class="col-xs-6">
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="all" name="all_market"  (change)="onAllMarketChange()" [(ngModel)]="x" [ngModelOptions]="{standalone: true}" >
+                <label class="form-check-label" for="all" > تحديد الكل</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="priceData.for != 'all_market'">
+            <div class="col-sm-2" *ngFor="let market of markets">
+              <div class="image">
+                <img *ngIf="!market.Image" src="../../../../assets/images/483862624-612x612.jpg" alt="" title="">
+                <img *ngIf="market.Image" [src]="ImageBase + '/' + market.Image.for + '/' + market.Image.name" alt=""
+                  title=""  >
+                <div class="form-group form-check">
+                  <input type="checkbox" class="form-check-input" [id]="'market' + market.id" [name]="market.name" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="selectedMarketsWrapper[market.id]" (change)="onSelectChange(market.id)">
+                </div>
+              </div>
+              <strong class="text-center"> {{market.name}} </strong>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <button type="submit" class="btn btn-primary"  [disabled]="!priceForm.valid || !priceData.image || (!selectedMarkets.length && priceData.for != 'all_market')">إرسال
+            عرض
+            سعر</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

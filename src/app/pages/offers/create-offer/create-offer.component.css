@@ -1,0 +1,20 @@
+p{
+    font-size: 12px !important;
+    text-align: right;
+}
+.DetailsRow{
+    width: 90% !important;
+    margin-right: 5% !important;
+    margin-left: 5% !important;
+}
+.myoffer { margin: 0 5%; }
+.row, .DetailsRow { 
+    display: flex;
+    justify-content: center;   
+}
+
+@media(max-width:767px) and (min-width:300px){
+    .DetailsRow {
+        display: block;
+    }
+} 

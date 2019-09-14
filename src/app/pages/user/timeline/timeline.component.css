@@ -1,0 +1,54 @@
+.active{
+    text-decoration: none;
+    background-color: #7d2468;
+    color: #fff !important;
+  }
+  .list-group-item{
+    margin: 10px;
+  }
+  .note{
+  
+    margin: 5px;
+    border: 2px solid #7d2468;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .note li {
+    list-style: none;
+  }
+  
+  .note p {
+    display: inline-table;
+      font-size: 28px;
+      background-color: #ececec;
+      color: black;
+      margin: 5px;
+      padding: 5px;
+      width: 100%;
+      border-radius: 5px;
+  }
+  .note .fa-trash {
+  float: left;
+  color: red;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 20px;
+  }
+  .note .fa-bell{
+    color: #7d2468;
+  }
+  .img-ads a{
+  font-size: 29px;
+  background-color: #7d2468;
+  color: #FFF;
+  padding: 5px;
+  /* margin: 8px; */
+  border-radius: 9px;}
+
+  h3{
+    width: 100%;
+    text-align: center;
+  }
+  .DispayImage{
+    border: 3px solid #7d2468;
+  }

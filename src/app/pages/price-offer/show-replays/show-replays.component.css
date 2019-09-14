@@ -1,0 +1,37 @@
+.item {
+    padding-right: 80px;
+    position: relative;
+    min-height: 90px;
+    box-shadow: 0 0 5px #c7c7c7;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+.item img {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.item h3 { 
+    font-weight: bold; 
+    padding-top: 5px;  
+    margin: 0; 
+    color: #7d2468;
+}
+.item span { 
+    padding-top: 10px; 
+    display: block; 
+    color: #f16d6d;
+}
+.item i { 
+    position: absolute; 
+    top: 35%; 
+    left: 5px; 
+    font-size: 20px;
+    color: #66d5a3;
+    box-shadow: 0 0 2px #66d5a3;
+    padding: 5px;
+    border-radius: 3px;
+}

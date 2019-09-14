@@ -1,0 +1,69 @@
+.no_products {
+    text-align: center;
+  }
+  .no_products a{
+    display: block;
+  }
+  /* .counte{
+    display: inline-block;
+  }
+
+  .price{
+    display: inline-block;
+    float: left;
+  }
+  .DeleteBtn{
+    display : block;
+  }
+  .Details{
+    width: 100% !important;
+  }
+  .market-details {
+    margin: 42px;
+  }
+  .BtnContiner{
+    width: 100%;
+    text-align: center;
+    margin: 15px;
+  }
+  .BtnContiner .btn {
+    background-color: #7d2468 !important;
+    color: white;
+
+  } */
+  .form-group .inp{
+    width: 30%;
+    display: inline-block;
+  }
+
+  .old-price {
+    position: relative;
+    /* text-align: left; */
+    /* padding: 38px; */
+    text-decoration: line-through;
+    font-size: 17px;
+    display: inline;
+  }
+
+  .input-group-addon, .input-group-btn {
+    vertical-align: top;
+  }
+  .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .btn-success {
+    font-size: 14px;
+  }
+  .input-group .form-control:not(:first-child):not(:last-child) {
+    text-align: center;
+    height: 35px;
+  }
+  .cart-all .row { margin-left: 0; }
+
+  @media(max-width: 460px) {
+    .cart-all .product-deteal .product-img { width: 100%; }
+}
+  @media(min-width: 767px) and (max-width: 991px){
+    .cart-all .product-deteal { min-height: 480px; }
+  }

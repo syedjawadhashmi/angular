@@ -1,0 +1,67 @@
+<section class=" category">
+  <div class="category-alll" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+    [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" [scrollWindow]="false"
+    [fromRoot]="true" [infiniteScrollContainer]="'.ng-sidebar__content'" (scrolled)="onScroll()">
+    <!-- <div class="offer_info">
+      <h4 *ngIf="currentOfferType"> {{ OffersType[currentOfferType] }} </h4>
+      <p> يتم عرض العروض عن يوم : {{ date | date }} </p>
+    </div> -->
+    <div class="categroy-perant-1" *ngFor="let parent of offers.slice(0, math.ceil(offers.length / 4));let i = index">
+
+      <div class="categroy-child" *ngFor="let product of offers.slice(i*4 , (i*4) + 4)">
+        <div class="market-name">
+          <a [routerLink]="['/markets/details/' + product.market[0].id + '_' + product.market[0].name]"> {{
+            product.market[0].name}} </a>
+        </div>
+        
+        <img *ngIf="product.images.length > 0" class="market-img"
+          [src]="ImageBase + '/' + product.images[productController.getMainImageIndex(product.images)].for + '/' + product.images[productController.getMainImageIndex(product.images)].name "
+          [alt]=" product.images[productController.getMainImageIndex(product.images)].alt"
+          [routerLink]="['/products/details/'+ product.category.name  + '/' + product.subCategory.name + '/' + product.subCategory.name  +'/' + product.id + '_' + product.name]"
+          [longDesc]="product.images[productController.getMainImageIndex(product.images)].description"
+          >
+        
+          <img *ngIf="product.images.length <= 0" class=" market-img" src="assets/images/85414.PNG" [alt]="product.name"
+          [routerLink]="['/products/details/'+ product.category.name + '/' + product.subCategory.name +'/' + product.id + '_' + product.name]">
+
+        <p class="disc" title="وصف المنتج "> {{ product.name | slice:0:25 }}
+          <span *ngIf="product.name.length > 15"> ... </span> </p>
+        <span class="price">
+          <!-- <span *ngIf="product.offer.offer_type == 1 || product.offer.offer_type == 4 || product.offer.offer_type == 5 ">
+            Egp {{ product.market[0].Market_Products['Selling_price'] -
+            (product.market[0].Market_Products['Selling_price'] *
+            (product.offer.value / 100)) }} </span> -->
+          <p *ngIf="product.offer.offer_type != 2 && product.offer.offer_type != 3 " class="new-price" title=" جديد">
+            {{ product['market'][0]['Market_Products']['Selling_price'] -
+              (product['market'][0]['Market_Products']['Selling_price'] * product.offer.value /100) }} جنية
+          </p>
+          <p class="new-price" title=" قديم" *ngIf="product.offer.offer_type == 2 || product.offer.offer_type == 3">
+            {{product['market'][0]['Market_Products']['Selling_price']}} جنيه </p>
+          <!-- <span *ngIf="product.offer.offer_type == 2 || product.offer.offer_type == 3  "> {{product.market[0].Market_Products['Selling_price']}} </span> -->
+        </span>
+        <!-- <span class="old-price">
+          EGP {{ product.market[0].Market_Products['Selling_price'] }}
+        </span> -->
+
+        <!-- <span class="old-price" *ngIf="product.offer.offer_type == 2">
+          قطعتين بثمن قطعه
+        </span>
+
+        <span class="old-price" *ngIf="product.offer.offer_type == 3">
+          ثلاثه قطع بثمن قطعه
+        </span> -->
+        <a class="mycart" href="javascript:void(0)" (click)="productController.onAddToCart(product , false , 1)">
+          <i class="fa fa-shopping-cart fa-2x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!-- <div class="container" *ngIf="ShowMore">
+    <div class="row">
+      <div class="col-lg-12 load-more">
+        <a title="تحميل المزيد" (click)="onScroll()" class="show-more">تحميل المزيد</a>
+      </div>
+    </div>
+  </div> -->
+</section>

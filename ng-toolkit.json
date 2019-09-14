@@ -1,0 +1,7 @@
+{
+  "universal": {
+    "project": "alaunna-angular-website",
+    "skipInstall": false,
+    "directory": "."
+  }
+}

@@ -1,0 +1,23 @@
+<section class="all-offers">
+  <h2 class="text-center"> طلبات الأسعار </h2>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6" *ngFor="let priceoffer of priceOffers" >
+        <div class="item">
+          <img *ngIf="!priceoffer.image" src="../../../../assets/images/team_1.jpg" alt="" title="">
+          <img *ngIf="priceoffer.image" [src]="ImageBase + '/' + priceoffer.image.for + '/' + priceoffer.image.name" alt="" title="">
+          <ul>
+            <li>
+              <h5> {{ priceoffer.name }} </h5>
+            </li>
+            <li> {{priceoffer.country.name}} {{priceoffer.category.name}} </li>
+            <li>
+              <p> {{ priceoffer.description }} </p>
+            </li>
+            <li> <a class="btn btn-primary" href="#" [routerLink]="['/price-offer/replays']" [queryParams]="{offer_price_id : priceoffer.id}" > عرض العروض </a> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

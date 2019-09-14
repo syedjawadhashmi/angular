@@ -1,0 +1,70 @@
+.container{
+    text-align: center;
+  }
+  .Marker{
+    cursor: pointer;
+  }
+  .market-looge{
+    background-image: url('/assets/images/market-logo-backgound.png')
+  }
+  h3 {
+    margin: 0px !important;
+    font-size: 15px !important;
+  }
+  .form-group {
+    display: inline-block;
+    width: 40%;
+    margin: 15px;
+  }
+  a:focus, a:hover{
+    color: #fff !important;
+  }
+  .btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 0px !important;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+    margin: 5px;
+  }
+  .GeoButton{
+    width: 10% !important;
+  }
+  .Market-btn{
+    position : absolute;
+    top: 0px;
+    left: 0px;
+    margin: 15px;
+  }
+.Image img{
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #7d2468;
+}
+.Market-Data{
+  font-size: 20px !important;
+  font-weight: bold !important;
+  margin: 5px 15px 5px 0px !important;
+}
+.Market-Data .DataHeader{
+  background-color: #7d2468;
+  border-radius: 15px;
+  color: white;
+  padding: 4px;
+}
+.Market-Data .DataValue{
+  color: #7d2468;
+  padding-top: 2px;
+  float: left;
+}
+.show-more { 
+  background: #7d2468; 
+  color: #FFF; 
+  padding: 5px 20px; 
+  margin: 20px 0; 
+  display: inline-block;
+  border-radius: 20px;
+  cursor: pointer;
+}

@@ -1,0 +1,139 @@
+<body>
+  <section class="all-adsss">
+
+    <div class="container" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+      [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" [scrollWindow]="false"
+      [fromRoot]="true" [infiniteScrollContainer]="'.ng-sidebar__content'" (scrolled)="onScroll()">
+      <form *ngIf="geoFitler">
+        <div class="form-group">
+          <label for="country"> المحافظه </label>
+          <select class="form-control" name="country" id="country" [(ngModel)]="country_id"
+            (change)="onCountryChange()">
+            <option *ngFor="let country of AllCountry" [value]="country.id"> {{ country.name }} </option>
+            <option [value]="false"> الكل </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="city"> المدينه </label>
+          <select class="form-control" name="city" id="city" [(ngModel)]="city_id" (change)="onCityChnage()">
+            <option *ngFor="let city of FilterdCities" [value]="city.id"> {{ city.name }} </option>
+            <option [value]="false"> الكل </option>
+          </select>
+        </div>
+        <!-- <div class="form-group GeoButton">
+          <button class="btn btn-circle btn-lg" (click)="onGeoPressed()">
+            <img src="./assets/images/searchIcon.png" width="25" height="25" alt="search" >
+          </button>
+          <label> موقعي </label>
+        </div> -->
+      </form>
+
+      <h1 class="text-center" *ngIf="!Markets.length"> لا يوجد متاجر لعرضها الان </h1>
+      <div
+        [ngClass]="{'adss-one' : market.class == 'big' , 'adss-two' : market.class == 'small' || market.class == 'middle'}"
+        *ngFor="let market of Markets">
+        <ng-template #marketDetails>
+          <div class="market-looge">
+            <a [routerLink]="['/markets/details/' + market.id + '_' + market.name]">
+              <img *ngIf="!market.Image" src="https://via.placeholder.com/150" [alt]="market.name">
+              <img *ngIf="market.Image" [src]="ImageBase + '/' + market.Image.for + '/small/' + market.Image.name "
+                [alt]="market.Image.alt" 
+                [longDesc]="market.Image.description" #MarketLogo
+                (error)="MarketLogo.src = ImageBase + '/' + market.Image.for + '/small/' + market.Image.name ">
+            </a>
+
+            <a [routerLink]="['/markets/details/' + market.id + '_' + market.name]">
+              <h2 class=" text-center" title="اسم المتجر "> اسم المتجر </h2>
+            </a>
+            <a [routerLink]="['/markets/details/' + market.id + '_' + market.name]"> <span class="markeet-Neam"> {{
+                market.name }} </span></a>
+            <a [routerLink]="['/markets/details/' + market.id + '_' + market.name]">
+              <h3 title="العنوان" class="text-center"> العنوان <i class="fa fa-map-marker"></i>
+              </h3>
+            </a>
+            
+            <p title=" تفاصيل العنوان " class="market-address text-center"> {{market.address}} </p>
+
+
+            <a [routerLink]="['/markets/details/' + market.id + '_' + market.name]">
+              <h3 title="رقم الهاتف الخاص بالمتجر" class="text-center"> رقم الهاتف <i class="fas fa-phone-volume"></i>
+              </h3>
+            </a>
+            <p title="رقم الهاتف" class="market-address text-center"> {{market.Owner?.phone}} </p>
+
+            <ng-container *ngIf="geoFitler && market.distance">
+              <a href="javascript:void()">
+                <h3 title="المسافه" class="text-center"> المسافه <i class="fa fa-map-marker"></i>
+                </h3>
+              </a>
+              <p title="المسافه" class="market-address text-center"> {{ math.ceil(market.distance) }} كم </p>
+            </ng-container>
+
+            <h3 title="العنوان" class="text-center" class="Marker"> <a
+                [href]="'https://maps.google.com/maps?q='+market.lat+','+market.lng+''"
+                style="color:#FFFF;text-align:left" target="_blank"> مكان المتجر علي الخريطه </a><i
+                class="fa fa-map-marker"></i>
+            </h3>
+          </div>
+        </ng-template>
+        <!-- <button type="button" placement="bottom" class="btn btn-primary Market-btn" [popover]="marketDetails"
+          popoverTitle="بيانات المتجر" triggers="focus">
+          {{ market.name }}
+        </button> -->
+        <button class="Market-btn Image btn-link" placement="bottom" [popover]="marketDetails"
+          popoverTitle="بيانات المتجر" triggers="focus">
+          <img *ngIf="!market.Image" src="https://via.placeholder.com/150" [alt]="market.name">
+          <img *ngIf="market.Image" [src]="ImageBase + '/' + market.Image.for + '/small/' + market.Image.name "
+            [longDesc]="market.Image.description" #MarketLogo2
+            (error)="MarketLogo2.src = ImageBase + '/' + market.Image.for + '/' + market.Image.name "
+            [alt]="market.Image.alt">
+        </button>
+
+        <a [routerLink]="'/markets/details/' + market.id + '_' + market.name">
+          <img *ngIf="!market.cover" src="https://via.placeholder.com/150" [alt]="market.name" title="ads"
+            class="main-ads">
+          <img class="main-ads" *ngIf="market.cover"
+            [src]="ImageBase + '/' +  market.cover.for +'/' + market.cover.name" 
+            [alt]="market.cover.alt"
+            [longDesc]="market.cover.description">
+        </a>
+
+        <div class="Market-Data">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center">
+              <h3 class="DataHeader"> الاسم : </h3>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+              <h3 class="DataValue"> {{market.name}} </h3>
+            </div>
+            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 text-center">
+              <h3 title="العنوان" class="text-center DataHeader Marker"> <a
+                  [href]="'https://maps.google.com/maps?q='+market.lat+','+market.lng+''"
+                  style="color:#FFFF;text-align:left" target="_blank"> مكان المتجر علي الخريطه </a><i
+                  class="fa fa-map-marker"></i>
+              </h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 text-center">
+              <h3 class="DataHeader"> العنوان : </h3>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-8 text-right">
+              <h3 class="DataValue"> {{market.address}} </h3>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- <div class="row" *ngIf="LoadMore">
+        <div class="col-lg-12">
+          <a title="تحميل المزيد" (click)="onScroll()" class="show-more">تحميل المزيد</a>
+        </div>
+      </div> -->
+
+    </div>
+
+  </section>
+</body>

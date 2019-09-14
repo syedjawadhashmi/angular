@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h3 class="modal-title pull-right"> اضافه منتجات من شيت اكسيل </h3>
+  <button type="button" class="close pull-left" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <h4> يجب ان يكون شيت الاسكيل بهذا الشكل </h4>
+  <img src="./assets/images/AwshnMarketsExcel.png" alt="alaunna product from excel" >
+
+  <form>
+    <div class="form-group">
+      <label for="exampleFormControlFile1"> ارفق ملف الاكسيل هنا </label>
+      <input type="file" class="form-control-file" id="exampleFormControlFile1" (change)="fileChange($event)"
+        placeholder="ارفق الملف" accept=".xlsx">
+    </div>
+  </form>
+
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="onAddButtonClicked()"> اضافه الان </button>
+</div>

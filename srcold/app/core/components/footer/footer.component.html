@@ -1,0 +1,254 @@
+<!--start footer -->
+<!-- <section class=" alauna-footer text-center"> -->
+<!-- <div class="container">
+    <div class="row text-center">
+
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 app-ads">
+        <h2 title="خصومات"> احصل على خصومات التطبيق المميزة </h2>
+        <a title=" تنزيل التطبيق" href="https://play.google.com/store/apps/details?id=customer.alaunna.com"> تنزيل
+          التطبيق</a>
+
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12  app-ads">
+        <h2 title="خصومات"> اشترك واحصل على العروض المميزة با استمرار </h2>
+        <a title=" اشترك الان" [routerLink]="['/auth/user-login']"> اشترك الان</a>
+
+      </div>
+
+    </div> -->
+<!-- <div class="row">
+      <div class="row">
+
+        <div class=" col-lg-2 footer-titel col-md-2 col-sm-2 col-xs-4  text-center">
+          <h4 title="الاكثر بحثا "> الاكثر بحثا</h4>
+
+        </div>
+        <div class="col-lg-2 footer-titel  col-md-2 col-sm-2 col-xs-4   text-center" >
+          <h4 title="حسابى  "> حسابى </h4>
+
+        </div>
+        <div class="col-lg-2 footer-titel  col-md-2 col-sm-2 col-xs-4    text-center">
+          <h4 title="البيع على الااونا  "> البيع على الااونا </h4>
+
+        </div>
+        <div class="col-lg-2  footer-titel col-md-2 col-sm-2 col-xs-6 hidden-xs more   text-center">
+          <h4 title="للاعلان معنا   "> للاعلان معنا </h4>
+
+        </div>
+        <div class="col-lg-3 footer-titel col-md-3 col-sm-3 col-xs-6 hidden-xs   download text-center">
+          <h4 title="تابعنا "> تواصل معنا </h4>
+
+        </div>
+
+      </div>
+
+    </div> -->
+
+<!-- <div class="row">
+
+      <div class=" col-lg-2  col-md-2 col-sm-2 col-xs-4 child  text-center">
+        <ul>
+          <li *ngFor="let cat of categories"> <a [routerLink]="['/products']" [queryParams]="{'category_id' : cat.id}">
+              {{ cat.name }} </a> </li>
+        </ul>
+      </div>
+      <div class="col-lg-2  col-md-2 col-sm-2 col-xs-4 child  text-center">
+        <ul *ngIf="CurrentUserData">
+          <li><a [routerLink]="['/user/profile']"> اعدادت الحساب </a></li>
+          <li><a [routerLink]="['/orders']"> طلباتي </a></li>
+          <li><a href="javascript:void(0)" (click)="onLogOutClicked()"> تسجيل الخروج </a></li>
+          <li><a [routerLink]="['/user/profile']"> اعدادت الحساب </a></li>
+        </ul>
+        <ul *ngIf="!CurrentUserData">
+          <li><a [routerLink]="['/auth/user-login']"> تسجيل الدخول كمستخدم </a></li>
+          <li><a [routerLink]="['/auth/user-signup']"> تسجيل جديد </a></li>
+          <li><a [routerLink]="['/auth/seller-login']"> تسجيل الدخول كتاجر </a></li>
+          <li><a [routerLink]="['/auth/add-market']"> اضافه المتجر الخاص بك </a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2  col-md-2 col-sm-2 col-xs-4  child  text-center">
+        <ul>
+          <ul *ngIf="CurrentUserData && CurrentUserData['category'] == 'seller'">
+            <li><a [routerLink]="['/products/create']"> اضافه منتج </a></li>
+            <li><a [routerLink]="['/offers/create']"> اضافه عروض لمنتجاتي </a></li>
+            <li><a [routerLink]="['/markets/banner/create']"> اضافه اعلان </a></li>
+          </ul>
+          <ul *ngIf="!CurrentUserData || CurrentUserData['category'] != 'seller'">
+            <li><a [routerLink]="['/auth/seller-singup']"> تسجيل جديد كتاجر </a></li>
+            <li><a [routerLink]="['/auth/seller-login']"> تسجيل الدخول كتاجر </a></li>
+            <li><a [routerLink]="['/auth/add-market']"> اضافه المتجر الخاص بك </a></li>
+          </ul>
+        </ul>
+      </div>
+      <div class="col-lg-2  col-md-2 col-sm-2 col-xs-6  hidden-xs more  child  text-center">
+
+        <ul>
+          <li><a href="https://www.facebook.com/" target="blank"> الفيسبوك <i class="fa fa-facebook fa-2x"></i></a>
+          </li>
+          <li><a href="https://www.whatsapp.com/?lang=ar" target="blank"> الواتس أب <i class="fa fa-whatsapp fa-2x"></i></a>
+          </li>
+          <li> <a href="https://www.instagram.com/p/BNKS65igkf-/" target="blank"> الانستجرام <i class="fa fa-instagram fa-2x"></i></a>
+          </li>
+        </ul>
+
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 hidden-xs   download text-center">
+
+        <div class="social text-center">
+          <a href="https://www.facebook.com/" target="blank"> <i class="fa fa-facebook fa-2x"></i></a>
+          <a href="https://www.whatsapp.com/?lang=ar" target="blank"> <i class="fa fa-whatsapp fa-2x"></i></a>
+          <a href="https://www.instagram.com/p/BNKS65igkf-/" target="blank"> <i class="fa fa-instagram fa-2x"></i></a>
+          <h5 title="تابعنا "> يمكنك تحميل التطبيق الان </h5>
+          <a href="https://play.google.com/store/apps/details?id=com.facebook.katana"> <img src="assets/images/apple .png"
+              alt=" play" title="play" class="dwn"> </a>
+          <a href="https://itunes.apple.com/eg/app/facebook/id284882215?mt=8"> <img src="assets/images/android.png "
+              alt=" play" title="play" class="dwn"></a>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.facebook.katana" target="blank"> <img src="assets/images/google-play-badge.png"
+            alt=" play" title="play">
+          <i class="fa fa-google-play"></i>
+        </a>
+        <a href="https://itunes.apple.com/eg/app/facebook/id284882215?mt=8" target="blank"> <img src="assets/images/download-on-the-app-store-badge (1).png"
+            alt=" aple" title="aple">
+          <i class="fa fa-app-store-ios"></i>
+        </a>
+      </div>
+    </div> -->
+<!-- </div> -->
+
+<!-- <div class="my_footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+          <h5>الأكثر بحثاً</h5>
+          <ul>
+            <li *ngFor="let cat of categories"> <a [routerLink]="['/products/' +  cat.id + '-'+ cat.name.replace(' ' , '-') ]"
+                >
+                {{ cat.name }} </a> </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+          <h5>الاعدادات</h5>
+          <ul *ngIf="CurrentUserData">
+            <li><a title="اعدادت الحساب" [routerLink]="['/user/profile']"> اعدادت الحساب </a></li>
+            <li><a title="طلباتي" [routerLink]="['/orders']"> طلباتي </a></li>
+            <li><a title="تسجيل الخروج " href="javascript:void(0)" (click)="onLogOutClicked()"> تسجيل الخروج </a></li>
+            <li><a title="اعدادت الحساب" [routerLink]="['/user/profile']"> اعدادت الحساب </a></li>
+          </ul>
+          <ul *ngIf="!CurrentUserData">
+            <li><a title="تسجيل الدخول كمستخدم" [routerLink]="['/auth/user-login']"> تسجيل الدخول كمستخدم </a></li>
+            <li><a title="تسجيل جديد " [routerLink]="['/auth/user-signup']"> تسجيل جديد </a></li>
+            <li><a title="تسجيل الدخول كتاجر " [routerLink]="['/auth/seller-login']"> تسجيل الدخول كتاجر </a></li>
+            <li><a title="اضافه المتجر الخاص بك" [routerLink]="['/auth/add-market']"> اضافه المتجر الخاص بك </a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+          <h5>بيع علي ألاأونا</h5>
+          <ul *ngIf="CurrentUserData && CurrentUserData['category'] == 'seller'">
+            <li><a title="اضافه منتج" [routerLink]="['/products/create']"> اضافه منتج </a></li>
+            <li><a title="اضافه عروض لمنتجاتي" [routerLink]="['/offers/create']"> اضافه عروض لمنتجاتي </a></li>
+            <li><a title="اضافه اعلان" [routerLink]="['/markets/banner/create']"> اضافه اعلان </a></li>
+          </ul>
+          <ul *ngIf="!CurrentUserData || CurrentUserData['category'] != 'seller'">
+            <li><a title="تسجيل جديد كتاجر" [routerLink]="['/auth/seller-singup']"> تسجيل جديد كتاجر </a></li>
+            <li><a title="تسجيل الدخول كتاجر" [routerLink]="['/auth/seller-login']"> تسجيل الدخول كتاجر </a></li>
+            <li><a title="اضافه المتجر الخاص بك" [routerLink]="['/auth/add-market']"> اضافه المتجر الخاص بك </a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+          <h5>للإعلان معنا</h5>
+          <ul *ngIf="CurrentUserData && CurrentUserData['category'] == 'seller'">
+            <li><a title="اضافه منتج" [routerLink]="['/products/create']"> اضافه منتج </a></li>
+            <li><a title="اضافه عروض لمنتجاتي" [routerLink]="['/offers/create']"> اضافه عروض لمنتجاتي </a></li>
+            <li><a title="اضافه اعلان" [routerLink]="['/markets/banner/create']"> اضافه اعلان </a></li>
+          </ul>
+          <ul *ngIf="!CurrentUserData || CurrentUserData['category'] != 'seller'">
+            <li><a title="تسجيل جديد كتاجر" [routerLink]="['/auth/seller-singup']"> تسجيل جديد كتاجر </a></li>
+            <li><a title="تسجيل الدخول كتاجر" [routerLink]="['/auth/seller-login']"> تسجيل الدخول كتاجر </a></li>
+            <li><a title="اضافه المتجر الخاص بك" [routerLink]="['/auth/add-market']"> اضافه المتجر الخاص بك </a></li>
+          </ul>
+        </div> -->
+
+<!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <div class="my_social">
+            <h5>تواصل معنا</h5>
+            <ul class="social_links">
+              <li><a title="facebook"
+                  href="https://www.facebook.com/%D8%A3%D9%84%D8%A7%D8%A3%D9%88%D9%86%D8%A7-403700423733386/"
+                  target="blank"> <i class="fa fa-facebook"></i></a></li>
+              <li><a title="whatsapp" href="https://api.whatsapp.com/send?phone=201010039331" target="blank"> <i
+                    class="fa fa-whatsapp"></i></a></li>
+              <li><a title="gmail" href="mailto:alaunna.markting@gmail.com" target="blank"> <i
+                    class="fa fa-envelope-open"></i></a></li>
+            </ul>
+            <div class="social text-center">
+              <h5 title="تابعنا "> يمكنك تحميل التطبيق الان </h5> -->
+<!-- <a title="apple" href="https://play.google.com/store/apps/details?id=customer.alaunna.com"> <img
+                  src="assets/images/apple .png" alt="play" title="play" class="dwn"> </a> -->
+<!-- <a title="google play" href="https://play.google.com/store/apps/details?id=customer.alaunna.com">
+                <img src="assets/images/android.png " alt=" play" title="play" class="dwn"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12 copyright">
+    <p> <a href="https://www.alaunna.com/" target="_blank"> كل الحقوق محفوظه لشركه الأونا</a></p>
+    <p> <a href="https://www.dopave.com/" target="_blank"> تطوير وتنفيذ dopave</a></p>
+  </div>
+</section> -->
+<!--End footer -->
+
+
+<div class="footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4 col-xs-6">
+        <div class="social-links">
+          <h5> تواصل معنا </h5>
+          <ul>
+            <li> <a title="whatsapp" href="https://api.whatsapp.com/send?phone=201010039331" target="_blank"> <i
+                  class="fa fa-whatsapp"></i> </a> </li>
+            <li> <a title="facebook"
+                href="https://www.facebook.com/%D8%A3%D9%84%D8%A7%D8%A3%D9%88%D9%86%D8%A7-403700423733386/"
+                target="_blank"> <i class="fa fa-facebook"></i> </a> </li>
+            <li> <a title="gmail" href="mailto:alaunna.markting@gmail.com" target="_blank"> <i
+                  class="fa fa-envelope-square"></i> </a> </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-xs-6">
+        <div class="download-app">
+          <h5> يمكنك تحميل التطبيق الأن </h5>
+          <ul>
+            <li> <a href="https://play.google.com/store/apps/details?id=customer.alaunna.com" target="_blank"> <i
+                  class="fa fa-android"></i> </a> </li>
+            <li> <a href="https://apps.apple.com/us/app/%D8%A3%D9%84%D8%A7%D8%A3%D9%88%D9%86%D8%A7/id1462575232?ls=1"
+                target="_blank"> <i class="fa fa-apple"></i> </a> </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-xs-12">
+        <div class="download-app">
+          <!-- <p> &copy; Alauuna 2019 </p> -->
+          <h5> يمكنك تحميل التطبيق التجار الأن </h5>
+          <ul>
+            <li> <a href="https://play.google.com/store/apps/details?id=seller.alaunna.com" target="_blank"> <i
+                  class="fa fa-android"></i> </a> </li>
+            <li> <a
+                href="https://apps.apple.com/us/app/%D8%A7%D9%84%D8%A7%D8%A3%D9%88%D9%86%D8%A7-%D8%AA%D8%AC%D8%A7%D8%B1/id1471311110?ls=1"
+                target="_blank"> <i class="fa fa-apple"></i> </a> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

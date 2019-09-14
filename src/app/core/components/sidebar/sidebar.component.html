@@ -1,0 +1,110 @@
+<!-- <accordion>
+  <ng-container *ngFor="let item of menuItems">
+
+    <accordion-group *ngIf="item.submenu.length" [heading]="item.title">
+
+      <ng-container *ngFor="let subitem of item.submenu">
+
+        <accordion-group *ngIf="subitem.submenu.length" [heading]="subitem.title">
+
+          <ng-container *ngFor="let subsubitem of subitem.submenu">
+              <a class="final" *ngIf=" subsubitem.isExternalLink " [href]="subsubitem.path"> {{subitem.title}} </a>
+              <a class="final" *ngIf=" !subsubitem.submenu.length && !subsubitem.isExternalLink " [routerLink]="[subsubitem.path]" [queryParams]="subsubitem.params">
+                {{item.title}} </a>
+          </ng-container>
+
+        </accordion-group>
+
+        <a class="final" *ngIf=" subitem.isExternalLink " [href]="subitem.path"> {{subitem.title}} </a>
+        <a class="final" *ngIf=" !subitem.submenu.length && !subitem.isExternalLink " [routerLink]="[subitem.path]" [queryParams]="subitem.params">
+          {{item.title}} </a>
+
+      </ng-container>
+
+    </accordion-group>
+    <a class="final" *ngIf=" item.isExternalLink " [href]="item.path"> {{item.title}} </a>
+    <a class="final" *ngIf=" !item.submenu.length && !item.isExternalLink " [routerLink]="[item.path]" [queryParams]="item.params">
+      {{item.title}} </a>
+
+  </ng-container>
+</accordion> -->
+
+<!-- <div class="just-padding"> -->
+
+<header style="padding: 10px;background-color: #7d2468;color: #FFF;">
+  <a [routerLink]="['/home']"> <img src="assets/images/Alaunna.png" alt=" اللجو" style="width: 60%;"> </a>
+  <!-- <button style="    float: left;
+        background-color: #7d2468;
+        border: 1px solid;">
+    <i class="fa fa-times"></i>
+  </button> -->
+</header>
+
+<div class="userData" *ngIf="UserData">
+  <a [routerLink]="['/user/profile']" (click)="closeSidebar()" >
+    <img *ngIf="UserData.Image" [src]="ImageBase + '/' + UserData.Image.for + '/' + UserData.Image.name" [alt]="UserData.name"
+      [title]="UserData.Image.description" >
+    <img *ngIf="!UserData.Image" src="./assets/images/MarketSeller.png" alt="alaunna" >
+    <h2> {{ UserData.name }} </h2>
+  </a>
+</div>
+
+<div *ngIf="!UserData" >
+  <a [routerLink]="['/auth/user-login']" class="btn btn-primary" > تسجيل الدخول </a>
+</div>
+
+<div class="list-group list-group-root well" [dir]="'rtl'">
+  <ng-container *ngFor="let item of menuItems">
+    <!-- has a subitems -->
+    <a *ngIf="item.subitems && item.subitems.length" class="list-group-item" (click)="onItemClicked(item)">
+      {{ item.name }}
+      <i class="glyphicon " [ngClass]="{'glyphicon-chevron-left' : !item.collabse , 'glyphicon-chevron-down' : item.collabse  }"></i>
+    </a>
+    <!-- dose not have subitems -->
+
+    <a class="list-group-item" *ngIf="(!item.subitems || item.subitems.length == 0) && item.type != 'offer'"
+      [routerLink]="['/general/' + item.type]" [queryParams]="{'category_id' : item.id}" (click)="closeSidebar()" > {{item.name}} </a>
+
+    <a class="list-group-item" *ngIf="(!item.subitems || item.subitems.length == 0) && item.type == 'offer'"
+      [routerLink]="[item.path]" [queryParams]="item.params" (click)="closeSidebar()" > {{item.name}} </a>
+
+    <div class="list-group " [collapse]="!item.collabse">
+      <ng-container *ngFor="let subitem of item.subitems">
+        <!-- has a subitems -->
+
+        <!-- <a *ngIf="subitem.subitems && subitem.subitems.length" class="list-group-item" (click)="onItemClicked(subitem)">
+          {{subitem.name}}
+          <i class="glyphicon" [ngClass]="{'glyphicon-chevron-left' : !subitem.collabse , 'glyphicon-chevron-down' : subitem.collabse  }"></i>
+        </a> -->
+
+        <!-- dose not have subitems -->
+        <a *ngIf="(!subitem.subitems || subitem.subitems.length == 0 ) && item.type == 'market'" class="list-group-item"
+          [routerLink]="['/markets/details/' + subitem.id + '_' + subitem.name]" (click)="closeSidebar()" >
+          <div class="row">
+            <div class="col-lg-4">
+              <img *ngIf="!subitem.Image" class="mega-img" src="assets/images/1.PNG" alt="market1">
+              <img *ngIf="subitem.Image" class="mega-img" [src]="ImageBase + '/' + subitem.Image.for  +'/'+subitem.Image.name "
+                [alt]="subitem.Image.alt" [longDesc]="subitem.Image.description">
+            </div>
+            <div class="col-lg-5">
+              {{ subitem.name }}
+            </div>
+          </div>
+        </a>
+
+        <a *ngIf="(!subitem.subitems || subitem.subitems.length == 0 ) && item.type == 'cat'" class="list-group-item"
+          [routerLink]="['/products']" [queryParams]="{subcategory_id: subitem.id}" (click)="closeSidebar()" >
+          {{subitem.name}}
+        </a>
+
+        <div class="list-group " [collapse]="!subitem.collabse">
+          <a *ngFor="let subsubitem of subitem.subitems" class="list-group-item" [routerLink]="['/general/'+subsubitem.type]"
+            [queryParams]="{'subsubcategory_id' : subsubitem.id}" (click)="closeSidebar()" > {{ subsubitem.name }}</a>
+        </div>
+
+      </ng-container>
+    </div>
+  </ng-container>
+</div>
+
+<!-- </div> -->

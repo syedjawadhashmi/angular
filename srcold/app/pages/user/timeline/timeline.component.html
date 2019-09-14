@@ -1,0 +1,140 @@
+<nav class="navbar navbar">
+  <div class="container">
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse HOme " id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav HOme-NAv ">
+        <li (click)="onPageChange('home')"><a [ngClass]="{'active' : CurrentPageType == 'home'}"> <i
+              class="fa fa-home"></i>الصفحة
+            الرئيسية</a></li>
+        <li (click)="onPageChange('notification')"><a [ngClass]="{'active' : CurrentPageType == 'notification'}"> <i
+              class="fa fa-bell"></i>الاشعارات</a></li>
+        <li (click)="onPageChange('offers')"><a [ngClass]="{'active' : CurrentPageType == 'offers'}"> <i
+              class="fa fa-gift"></i>
+            العروض</a></li>
+        <li (click)="onPageChange('rates')"><a [ngClass]="{'active' : CurrentPageType == 'rates'}"> <i
+              class="fa fa-star"></i>
+            التقيم</a></li>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<section class="img-ads">
+  <div *ngIf="CurrentPageType == 'home'" class="container" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+    [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScroll()">
+    <h3 *ngIf="!MarketsFavorites.length"> ﻻ يوجد اي متاجر في متاجرك حاليا </h3>
+    <div class="row" style="margin: 10px;" *ngFor="let fav of MarketsFavorites">
+      <div class="col-lg-12">
+        <!-- <a [routerLink]="['/market-details/' + fav.Market.id]"> -->
+        <a [routerLink]="['/markets/details/' + fav.Market.id + '_' + fav.Market.name]"> {{fav.Market.name}} </a>
+        <img class="DispayImage" *ngIf="!fav.Market.banners || !fav.Market.banners[0]  || !fav.Market.banners[0].image"
+          src="assets/images/Group 613.png" [alt]="fav.market.name" [title]="fav.Market.name">
+
+        <img class="DispayImage" *ngIf="fav.Market.banners && fav.Market.banners[0] && fav.Market.banners[0].image"
+          [src]="ImageBase + '/' + fav.Market.banners[0].image.for + '/' + fav.Market.banners[0].image.name"
+          [alt]="fav.market.name" [title]="fav.Market.banners[0].image.description">
+        <!-- </a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="CurrentPageType == 'rates'">
+  <div class="container">
+    <h3 *ngIf="!Rates.length"> ﻻ يوجد اي تقيمات حاليا </h3>
+    <ul class="list-group" *ngIf="Rates.length" infiniteScroll [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+      <li class="list-group-item" *ngFor="let rate of Rates">
+        <p> رقم المنتج : <a [routerLink]="['/products/details/' + rate.product_id]">{{rate.product_id}}</a> </p>
+        <rating class="ratingclass" [(ngModel)]="rate.value" [max]="5" [readonly]="false"> </rating>
+        <div class="form-group">
+          <label for="comment"> التعليق : </label>
+          <textarea class="form-control" rows="2" id="comment" [(ngModel)]="rate.comment"></textarea>
+        </div>
+        <button class="btn btn-primary" (click)="onRateEditClicked(rate)"> تعديل </button>
+        <button class="btn btn-danger" (click)="onRateDeleteClicked(rate)"> مسج </button>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section *ngIf="CurrentPageType == 'notification'">
+  <div class="container">
+    <div class=" row">
+      <h3 *ngIf="!Notifications.length"> ﻻ يوجد اي اشعارات حاليا </h3>
+
+      <div class="col-lg-12 " *ngFor="let noti of Notifications">
+        <div class="note">
+          <li>
+            <p> <i class="fa fa-bell"></i> {{ noti.message }} <i class="fa fa-trash"
+                (click)="DeleteNotifiction(noti.id)"></i>
+            </p>
+
+          </li>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class=" category" *ngIf="CurrentPageType == 'offers'">
+  <h3 *ngIf="!Productsoffers.length"> ﻻ يوجد اي عروض حاليا </h3>
+  <div class="category-alll" infinite-scroll [infiniteScrollDistance]="scrollDistance"
+    [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle" (scrolled)="onScroll()">
+    <div class="categroy-perant-1"
+      *ngFor="let parent of Productsoffers.slice(0, math.ceil(Productsoffers.length / 4));let i = index">
+
+      <div class="categroy-child" *ngFor="let product of Productsoffers.slice(i*4 , (i*4) + 4)">
+        <div class="market-name">
+          <a [routerLink]="['/markets/details/' + product.market[0].id + '_' + product.market[0].name]"> {{
+            product.market[0].name}} </a>
+        </div>
+        <img *ngIf="product.images.length > 0" class="market-img"
+          [src]="ImageBase + '/' + product.images[productsController.getMainImageIndex(product.images)].for + '/' + product.images[productsController.getMainImageIndex(product.images)].name " [alt]="product.name"
+          width="222" height="163">
+        <img *ngIf="product.images.length <= 0" class=" market-img" src="assets/images/85414.PNG" [alt]="product.name"
+          width="222" height="163">
+
+        <p class="disc" title="وصف المنتج "> <a
+            [routerLink]="['/products/details/' + product.market[0].name + '/' + product.id + '_' + product.name]">
+            {{ product.name | slice:0:25 }}
+            <!-- <span *ngIf="product.name.length > 15"> ..... </span> -->
+          </a>
+        </p>
+        <span class="price">
+          <span
+            *ngIf="product.offer.offer_type == 1 || product.offer.offer_type == 4 || product.offer.offer_type == 5 ">
+            Egp {{ product.market[0].Market_Products['Selling_price'] -
+            (product.market[0].Market_Products['Selling_price'] *
+            (product.offer.value / 100)) }} </span>
+          <!-- <span *ngIf="product.offer.offer_type == 2 || product.offer.offer_type == 3  "> {{product.market[0].Market_Products['Selling_price']}} </span> -->
+        </span>
+
+        <!-- <span class="old-price">
+          EGP {{ product.market[0].Market_Products['Selling_price'] }}
+        </span> -->
+
+        <!-- <span class="old-price" *ngIf="product.offer.offer_type == 2">
+          قطعتين بثمن قطعه
+        </span>
+
+        <span class="old-price" *ngIf="product.offer.offer_type == 3">
+          ثلاثه قطع بثمن قطعه
+        </span> -->
+        <a href="javascript:void(0)" (click)="productsController.onAddToCart(product , false ,1)">
+          <i class="fa fa-shopping-cart fa-2x"></i>
+        </a>
+        <a href="javascript:void(0)" (click)="onAddToFavoritePressed(product)">
+          <i class="fa fa-heart fa-2x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</section>

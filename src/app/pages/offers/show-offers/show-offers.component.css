@@ -1,0 +1,18 @@
+.category-alll h4 , p{
+    margin: 0px;
+    font-size: 15px;
+  }
+  .load-more { text-align: center; }
+.show-more {
+  background: #7d2468;
+  color: #FFF;
+  padding: 5px 20px;
+  margin: 20px 0;
+  display: inline-block;
+  border-radius: 20px;
+  cursor: pointer;
+}
+@media (max-width: 1200px) and (min-width: 992px)
+ {
+  .categroy-child { min-height: 300px!important; }
+ }

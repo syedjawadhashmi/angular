@@ -1,0 +1,109 @@
+.alauna-footer .child ul {
+    padding: 0px !important;
+}
+.alauna-footer .app-ads { min-height: 65px!important; }
+.alauna-footer .app-ads h2 { font-size: 20px; margin-top: 5px; }
+.alauna-footer .app-ads a { padding: 0 15px; }
+.my_footer {
+    background: #7d2468;
+    margin-top: 20px;
+    padding: 20px 0;
+}
+.my_footer h5 {
+    font-weight: 600;
+    font-size: 17px;
+    /* padding-bottom: 10px; */
+}
+.my_footer ul li { margin-top: 15px; }
+.my_footer .social_links li { display: inline; padding-left: 10px; }
+.my_footer .social_links li i { 
+    border: 1px solid #FFF;
+    border-radius: 50%;
+    padding: 9px 12px;
+    font-size: 20px;
+}
+.my_footer .my_social {
+    background: #a92189;
+    border-radius: 11px;
+    padding: 10px;
+}
+.social{
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+/* .copyright { background: #a92189; } */
+
+
+
+
+
+.footer {
+    background: #7d2468;
+    color: #FFF;
+    font-weight: 500;
+    padding: 10px 0;
+    /* position: absolute;
+    width: 100%;
+    bottom: 0; */
+    text-align: center;
+    margin-top: 15px;
+}
+
+.footer ul {
+    padding: 0;
+    list-style: none;
+}
+
+.footer ul li {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #FFF;
+    border-radius: 50%;
+    line-height: 1.8;
+    transition: all .4s ease-in-out;
+    margin-right: 15px;
+    font-size: 23px;
+}
+
+.footer ul li a {
+    color: #FFF;
+}
+
+.footer .copyright  {
+    position: relative;
+}
+
+.footer .copyright p {
+    /* line-height: 4;
+    height: 50px; */
+    position: absolute;
+    width: 100%;
+    top: 35px;
+}
+
+
+.footer ul li:hover {
+    background: #FFF
+}
+
+.footer ul li:hover a {
+    color: #7d2468
+}
+
+@media (max-width: 567px) {
+    .footer ul li {
+        width: 30px;
+        height: 30px;
+        line-height: 1.5;
+        font-size: 20px;
+    }
+}
+@media(max-width: 768px) {
+    .footer .col-xs-12 .copyright {
+        text-align: center;
+    }
+    .footer .copyright p { position: relative; top: auto; }
+}

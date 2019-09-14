@@ -1,0 +1,34 @@
+.login-btn button{
+    width: 60% ;
+    font-size: 15px;
+  }
+  /* .col-lg-5{
+    margin-right: 29.166665% ;
+    margin-left: 29.166665% ;
+  } */
+  .ImageCont{
+    width: 100%;
+  
+  }
+  
+  .ImageCont img{
+    width: 150px;
+  }
+  
+  .ImageCont p {
+    color: #7d2468;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .RrgisterPart{
+    font-size: 15px;
+    color: #7d2468;
+  }
+  
+  .ImageCont img {
+    background-color: transparent !important;
+  }
+.container {
+    padding: 0 7%;
+  }

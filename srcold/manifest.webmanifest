@@ -1,0 +1,12 @@
+{
+  "name": "Alaunna News",
+  "short_name": "Alaunna",
+  "description": "ألاأونا تسوق بسهولة",
+  "lang": "ar-AR",
+  "theme_color": "#3f51b5",
+  "background_color": "#fff",
+  "display": "standalone",
+  "scope": ".",
+  "start_url": "./index.html",
+  "orientation": "any"
+}

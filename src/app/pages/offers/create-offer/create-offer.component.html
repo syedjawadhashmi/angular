@@ -1,0 +1,110 @@
+<body>
+  <section class="offers">
+    <div class="contanier">
+      <div class="offers-all">
+
+        <div class="row">
+          <div class="col-lg-2 col-sm-4 col-md-4 col-xs-12 myoffer">
+            <p> العرض الاساسى </p>
+            <img src="assets/images/images (4).png" alt="alaunna" title="ads">
+          </div>
+          <!-- <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+            <p> عرض القطعة المجانية </p>
+
+            <img src="assets/images/483862624-612x612.jpg" alt="alauuna" title="ads">
+
+          </div> -->
+          <div class="col-lg-2 col-sm-4 col-md-4 col-xs-12 myoffer">
+            <p> عرض عرض الااونا </p>
+
+            <img src="assets/images/800px_COLOURBOX34249027.jpg" alt="alaunna" title="ads">
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row DetailsRow">
+        <div class="col-lg-2 col-sm-4 col-md-4 col-xs-12 offer-detals">
+          <h4> تفاصيل العرض </h4>
+
+          <span> عنوان العرض</span>
+          <input class="form-control" type="text" [(ngModel)]="OfferDataType1.title">
+
+          <span> وصف العرض </span>
+          <input class="form-control" type="text" [(ngModel)]="OfferDataType1.description">
+
+          <span> تاريخ العرض </span>
+          <p> من </p>
+          <input class="form-control" type="date" placeholder="من" [(ngModel)]="OfferDataType1.from" (change)="getOfferDuraction(OfferDataType1)">
+          <p> الي </p>
+          <input class="form-control" type="date" placeholder="الى" [(ngModel)]="OfferDataType1.to" (change)="getOfferDuraction(OfferDataType1)">
+          <span> مدة العرض</span>
+          <input class="form-control" type="text" readonly="true" [(ngModel)]="OfferDataType1.duration">
+          <span> قيمه الخصم </span>
+          <input class="form-control" type="number" min="0" [(ngModel)]="OfferDataType1.value">
+
+          <button class="btn btn-default" (click)="onAddProductsPressed(OfferDataType1)"> <i class="fa fa-upload"></i>
+            اضف منتجات </button>
+
+          <button class="addd" (click)="onAddClicked(OfferDataType1)"> اضف الان</button>
+        </div>
+
+        <!-- <div class="col-lg-2 col-sm-2 col-md-2 col-xs-12 offer-detals">
+          <h4> تفاصيل العرض </h4>
+
+          <span> عنوان العرض</span>
+          <input class="form-control" type="text" [(ngModel)]="OfferDataType23.title">
+
+          <span> وصف العرض </span>
+          <input class="form-control" type="text" [(ngModel)]="OfferDataType23.description">
+
+          <span> تاريخ العرض </span>
+          <p> من </p>
+          <input class="form-control" name="from" type="date" placeholder="من" [(ngModel)]="OfferDataType23.from"
+            (change)="getOfferDuraction(OfferDataType23)">
+          <p> الي </p>
+          <input class="form-control" name="to" type="date" placeholder="الى" [(ngModel)]="OfferDataType23.to" (change)="getOfferDuraction(OfferDataType23)">
+          <span> مدة العرض</span>
+          <input class="form-control" name="duration" type="text" readonly="true" [(ngModel)]="OfferDataType23.duration">
+
+          <span>نوع العرض</span>
+          <select class="form-control" name="offer_type" [(ngModel)]="OfferDataType23.offer_type">
+            <option value="2"> اضافه قطعه عند شراء قطعه </option>
+            <option value="3"> اضافه قطعتين عند شراء قطعه </option>
+          </select>
+          <button class="btn btn-default" (click)="onAddProductsPressed(OfferDataType23)"> <i class="fa fa-upload"></i>
+            اضف منتجات </button>
+
+          <button class="addd" (click)="onAddClicked(OfferDataType23)"> اضف الان</button>
+        </div> -->
+
+
+        <div class="col-lg-2 col-sm-4 col-md-4 col-xs-12 offer-detals">
+          <h4> تفاصيل العرض </h4>
+
+          <span> عنوان العرض</span>
+          <input class="form-control" type="text" [(ngModel)]="OfferDataType4.title">
+
+          <span> وصف العرض </span>
+          <input class="form-control" type="text" [(ngModel)]="OfferDataType4.description">
+
+          <span> تاريخ العرض </span>
+          <p> من </p>
+          <input class="form-control" type="date" placeholder="من" [(ngModel)]="OfferDataType4.from" (change)="getOfferDuraction(OfferDataType4)">
+          <p> الي </p>
+          <input class="form-control" type="date" placeholder="الى" [(ngModel)]="OfferDataType4.to" (change)="getOfferDuraction(OfferDataType4)">
+          <span> مدة العرض</span>
+          <input class="form-control" type="text" readonly="true" [(ngModel)]="OfferDataType4.duration">
+          <!-- <span> قيمه الخصم </span>
+          <input class="form-control" type="number" min="0" [(ngModel)]="OfferDataType4.value"> -->
+
+          <button class="btn btn-default" (click)="onAddProductsPressed(OfferDataType4)"> <i class="fa fa-upload"></i>
+            اضف منتجات </button>
+
+          <button class="addd" (click)="onAddClicked(OfferDataType4)"> اضف الان</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</body>
